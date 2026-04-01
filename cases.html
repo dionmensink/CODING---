@@ -1,0 +1,303 @@
+﻿<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cases &amp; Referenties — Mensinc</title>
+  <meta name="description" content="Praktijkvoorbeelden van trainingen en coaching door Dion Mensink. Resultaten in agressiemanagement en high performance coaching.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <style>body { opacity: 0; }</style>
+
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/nav.css">
+  <link rel="stylesheet" href="css/footer.css">
+  <link rel="stylesheet" href="css/pages.css">
+
+  <style>
+    .reveal {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.55s var(--ease-smooth), transform 0.55s var(--ease-smooth);
+      will-change: opacity, transform;
+    }
+    .reveal.revealed { opacity: 1; transform: translateY(0); }
+    .reveal-delay-1 { transition-delay: 0.08s; }
+    .reveal-delay-2 { transition-delay: 0.16s; }
+
+    /* Quote / testimonial block */
+    .testimonials {
+      padding: 80px 0;
+      background: var(--cream-dark);
+      border-top: 1px solid var(--ink-faint);
+      border-bottom: 1px solid var(--ink-faint);
+    }
+    .testimonials__inner {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0 40px;
+    }
+    .testimonials__header {
+      margin-bottom: 56px;
+    }
+    .testimonials__grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 32px;
+    }
+    .testimonial {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .testimonial__quote-mark {
+      font-size: 3rem;
+      font-weight: 700;
+      color: var(--ink-faint);
+      line-height: 1;
+      font-style: italic;
+      font-family: Georgia, serif;
+    }
+    .testimonial__text {
+      font-size: 0.95rem;
+      font-style: italic;
+      color: var(--ink-mid);
+      line-height: 1.75;
+      max-width: 100%;
+    }
+    .testimonial__author {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      border-top: 1px solid var(--ink-faint);
+      padding-top: 16px;
+    }
+    .testimonial__name {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--ink);
+      letter-spacing: 0.04em;
+    }
+    .testimonial__role {
+      font-size: 0.75rem;
+      font-weight: 300;
+      color: var(--ink-light);
+      letter-spacing: 0.04em;
+    }
+
+    @media (max-width: 900px) {
+      .testimonials__grid { grid-template-columns: repeat(2, 1fr); }
+      .testimonials__inner { padding: 0 24px; }
+    }
+    @media (max-width: 600px) {
+      .testimonials__grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVIGATION -->
+  <nav class="site-nav" role="navigation" aria-label="Hoofdnavigatie">
+    <div class="site-nav__inner">
+      <a href="index.html" class="site-nav__logo" aria-label="Mensinc — naar startpagina">
+        <img src="images/Logo_Mensic.png" alt="Mensinc" class="nav-logo-img">
+      </a>
+      <ul class="site-nav__links" role="list">
+        <li><a href="over.html">Over Dion</a></li>
+        <li><a href="trainer.html">Trainer</a></li>
+        <li><a href="coach.html">Coach</a></li>
+        <li><a href="cases.html" class="active">Cases</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+      <button class="site-nav__hamburger" aria-label="Menu openen" aria-expanded="false" aria-controls="mobile-menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <nav class="site-nav__mobile" id="mobile-menu" aria-label="Mobiele navigatie">
+      <a href="over.html">Over Dion</a>
+      <a href="trainer.html">Trainer</a>
+      <a href="coach.html">Coach</a>
+      <a href="cases.html">Cases</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </nav>
+  <div class="nav-spacer"></div>
+
+  <main>
+
+    <!-- HERO -->
+    <section class="page-hero page-hero--medium" style="background: var(--ink);" aria-label="Cases en referenties">
+      <div class="page-hero__content container" style="justify-content: center; align-items: flex-start; padding-top: 80px;">
+        <p class="page-hero__label">Mensinc</p>
+        <h1 class="page-hero__title">Cases &amp;<br>Referenties</h1>
+      </div>
+    </section>
+
+    <!-- CASES GRID -->
+    <section class="cases-grid section" aria-label="Praktijkcases">
+      <div class="cases-grid__inner">
+        <div class="cases-grid__header reveal">
+          <span class="label">Praktijk</span>
+          <h2>Wat anderen zeggen</h2>
+        </div>
+        <div class="cases-grid__items">
+
+          <div class="case-card reveal">
+            <span class="case-card__tag">Training — Zorgsector</span>
+            <h3 class="case-card__title">Agressiemanagement op de SEH</h3>
+            <div class="case-card__challenge">
+              <span class="case-card__meta-label">Uitdaging</span>
+              <p class="case-card__meta-value">Verpleegkundig personeel ervoer toenemend verbaal en fysiek geweld van patiënten en bezoekers.</p>
+            </div>
+            <div class="case-card__result">
+              <span class="case-card__meta-label">Resultaat</span>
+              <p class="case-card__meta-value">Na een incompany traject van 3 sessies rapporteerde het team meer grip, minder escalaties en hogere werkplezier.</p>
+            </div>
+          </div>
+
+          <div class="case-card reveal reveal-delay-1">
+            <span class="case-card__tag">Coaching — Ondernemer</span>
+            <h3 class="case-card__title">Van 80k naar 160k omzet in 11 maanden</h3>
+            <div class="case-card__challenge">
+              <span class="case-card__meta-label">Uitdaging</span>
+              <p class="case-card__meta-value">Freelance consultant met veel expertise maar structurele onderpricing en moeite met verkopen.</p>
+            </div>
+            <div class="case-card__result">
+              <span class="case-card__meta-label">Resultaat</span>
+              <p class="case-card__meta-value">Dankzij positioneringscoaching, prijsstrategie en verkoopgedrag verdubbelde de omzet binnen een jaar.</p>
+            </div>
+          </div>
+
+          <div class="case-card reveal">
+            <span class="case-card__tag">Training — Overheid</span>
+            <h3 class="case-card__title">Agressietraining gemeentebalie</h3>
+            <div class="case-card__challenge">
+              <span class="case-card__meta-label">Uitdaging</span>
+              <p class="case-card__meta-value">Baliemedewerkers voelden zich onvoldoende toegerust voor agressieve klantinteracties.</p>
+            </div>
+            <div class="case-card__result">
+              <span class="case-card__meta-label">Resultaat</span>
+              <p class="case-card__meta-value">Blended trainingstraject (online + incompany) voor 35 medewerkers met meetbare verbetering in zelfvertrouwen en gedrag.</p>
+            </div>
+          </div>
+
+          <div class="case-card reveal reveal-delay-1">
+            <span class="case-card__tag">Coaching — Salesleider</span>
+            <h3 class="case-card__title">Leiderschapsontwikkeling salesmanager</h3>
+            <div class="case-card__challenge">
+              <span class="case-card__meta-label">Uitdaging</span>
+              <p class="case-card__meta-value">Ervaren salesmanager met hoge persoonlijke prestatie maar moeite om het team mee omhoog te trekken.</p>
+            </div>
+            <div class="case-card__result">
+              <span class="case-card__meta-label">Resultaat</span>
+              <p class="case-card__meta-value">Na 6 coachingsessies verbeterde teamdynamiek, nam omzet van het team met 28% toe en daalde het verzuim.</p>
+            </div>
+          </div>
+
+          <div class="case-card reveal">
+            <span class="case-card__tag">Training — Onderwijs</span>
+            <h3 class="case-card__title">Grensoverschrijdend gedrag op de werkvloer</h3>
+            <div class="case-card__challenge">
+              <span class="case-card__meta-label">Uitdaging</span>
+              <p class="case-card__meta-value">School met toename in agressief gedrag van leerlingen richting docenten en onderwijsondersteuners.</p>
+            </div>
+            <div class="case-card__result">
+              <span class="case-card__meta-label">Resultaat</span>
+              <p class="case-card__meta-value">Schoolbreed trainingsprogramma voor 60+ medewerkers met een duidelijk protocol en vertrouwen in de aanpak.</p>
+            </div>
+          </div>
+
+          <div class="case-card reveal reveal-delay-1">
+            <span class="case-card__tag">Coaching — Directeur</span>
+            <h3 class="case-card__title">Focus en beslissingsscherpte herstellen</h3>
+            <div class="case-card__challenge">
+              <span class="case-card__meta-label">Uitdaging</span>
+              <p class="case-card__meta-value">Directeur van een groeiend MKB-bedrijf ervoer overload, verloor scherpte en begon reactief te werken.</p>
+            </div>
+            <div class="case-card__result">
+              <span class="case-card__meta-label">Resultaat</span>
+              <p class="case-card__meta-value">Door 8 wekelijkse sessies herontdekte hij zijn focus, delegeerde effectiever en zette 3 strategische beslissingen door.</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- TESTIMONIALS -->
+    <section class="testimonials" aria-label="Ervaringen">
+      <div class="testimonials__inner">
+        <div class="testimonials__header reveal">
+          <span class="label">Ervaringen</span>
+          <h2>Wat deelnemers zeggen</h2>
+        </div>
+        <div class="testimonials__grid">
+
+          <div class="testimonial reveal">
+            <span class="testimonial__quote-mark">"</span>
+            <p class="testimonial__text">Dion legt de lat hoog, maar houdt je erbij. Geen soft coaching — hij confronteert je met wat je echt tegenhoudt. Precies wat ik nodig had.</p>
+            <div class="testimonial__author">
+              <span class="testimonial__name">Jeroen V.</span>
+              <span class="testimonial__role">Ondernemer, Coaching traject</span>
+            </div>
+          </div>
+
+          <div class="testimonial reveal reveal-delay-1">
+            <span class="testimonial__quote-mark">"</span>
+            <p class="testimonial__text">De training was herkenbaar, praktisch en meteen toepasbaar. Onze medewerkers gingen anders de gang op — letterlijk.</p>
+            <div class="testimonial__author">
+              <span class="testimonial__name">Manon R.</span>
+              <span class="testimonial__role">HR-manager, Zorgsector</span>
+            </div>
+          </div>
+
+          <div class="testimonial reveal reveal-delay-2">
+            <span class="testimonial__quote-mark">"</span>
+            <p class="testimonial__text">In 6 sessies meer beweging dan in 2 jaar zelf puzzelen. Dion ziet snel wat er echt speelt — en daar gaat hij ook naartoe.</p>
+            <div class="testimonial__author">
+              <span class="testimonial__name">Sanne K.</span>
+              <span class="testimonial__role">Salesmanager, Coaching traject</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="page-cta" aria-label="Contact">
+      <div class="page-cta__inner">
+        <span class="label reveal">Interesse?</span>
+        <h2 class="page-cta__title reveal">Bespreek wat Dion voor jouw organisatie kan betekenen.</h2>
+        <a class="btn btn--filled reveal" href="contact.html">Neem contact op</a>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="footer-nav-bar">
+      <a href="index.html" aria-label="Mensinc — startpagina">
+        <img src="images/Logo_Mensic.png" alt="Mensinc" class="footer-logo-img">
+      </a>
+      <nav class="footer-links" aria-label="Footer navigatie">
+        <a href="over.html">Over Dion</a>
+        <a href="trainer.html">Trainer</a>
+        <a href="coach.html">Coach</a>
+        <a href="cases.html">Cases</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+      <span class="footer-copy">© 2026 Mensinc · Kerkstraat 239, Oostzaan</span>
+    </div>
+    <div class="footer-skyline">
+      <img src="images/amsterdam-skyline.jpg" alt="Amsterdam grachtenhuizen — gravure illustratie" loading="lazy">
+    </div>
+  </footer>
+
+  <script src="js/transitions.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

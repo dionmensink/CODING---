@@ -1,0 +1,209 @@
+/* =========================================================
+   NAV.CSS — Global Navigation
+   Fixed top bar + hamburger for mobile
+   ========================================================= */
+
+.site-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  height: var(--nav-height);
+  background: var(--orange);
+  border-bottom: 1px solid rgba(0,0,0,0.12);
+  display: flex;
+  align-items: center;
+  will-change: transform;
+}
+
+.site-nav__inner {
+  width: 100%;
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* ----- Logo ----- */
+.site-nav__logo {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  flex-shrink: 0;
+}
+
+/* Logo — white version on green background */
+.nav-logo-img {
+  height: 72px;
+  width: auto;
+  display: block;
+  filter: brightness(0) invert(1);
+  mix-blend-mode: normal;
+  transition: opacity 0.25s var(--ease-smooth);
+  will-change: opacity;
+  opacity: 1;
+}
+
+.site-nav__logo:hover .nav-logo-img {
+  opacity: 0.8;
+}
+
+/* Footer logo — same PNG, muted to match footer tone */
+.footer-logo-img {
+  height: 34px;
+  width: auto;
+  display: block;
+  filter: grayscale(1) contrast(0.9) brightness(1.3);
+  mix-blend-mode: multiply;
+  opacity: 0.6;
+}
+
+/* ----- Nav links ----- */
+.site-nav__links {
+  display: flex;
+  align-items: center;
+  gap: 36px;
+}
+
+.site-nav__links a {
+  font-family: var(--font);
+  font-size: 0.82rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.75);
+  text-decoration: none;
+  position: relative;
+  transition: color 0.2s var(--ease-smooth);
+  will-change: color;
+}
+
+.site-nav__links a::after {
+  content: '';
+  position: absolute;
+  bottom: -3px;
+  left: 0;
+  right: 0;
+  height: 1.5px;
+  background: rgba(255,255,255,0.9);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.25s var(--ease-smooth);
+  will-change: transform;
+}
+
+.site-nav__links a:hover {
+  color: #fff;
+}
+
+.site-nav__links a:hover::after {
+  transform: scaleX(1);
+}
+
+.site-nav__links a.active {
+  color: #fff;
+}
+
+.site-nav__links a.active::after {
+  transform: scaleX(1);
+}
+
+/* ----- Hamburger (mobile) ----- */
+.site-nav__hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+  padding: 4px;
+  background: none;
+  border: none;
+}
+
+.site-nav__hamburger span {
+  display: block;
+  width: 24px;
+  height: 1.5px;
+  background: #fff;
+  transition: transform 0.3s var(--ease-smooth), opacity 0.3s var(--ease-smooth);
+  will-change: transform, opacity;
+}
+
+.site-nav__hamburger.open span:nth-child(1) {
+  transform: translateY(6.5px) rotate(45deg);
+}
+.site-nav__hamburger.open span:nth-child(2) {
+  opacity: 0;
+  transform: scaleX(0);
+}
+.site-nav__hamburger.open span:nth-child(3) {
+  transform: translateY(-6.5px) rotate(-45deg);
+}
+
+/* ----- Mobile slide-in menu ----- */
+.site-nav__mobile {
+  display: none;
+  position: fixed;
+  top: var(--nav-height);
+  left: 0;
+  right: 0;
+  background: var(--orange);
+  border-bottom: 1px solid rgba(0,0,0,0.12);
+  padding: 32px 40px;
+  z-index: 99;
+  flex-direction: column;
+  gap: 24px;
+  transform: translateY(-16px);
+  opacity: 0;
+  pointer-events: none;
+  transition: transform 0.3s var(--ease-smooth), opacity 0.3s var(--ease-smooth);
+  will-change: transform, opacity;
+}
+
+.site-nav__mobile.open {
+  transform: translateY(0);
+  opacity: 1;
+  pointer-events: all;
+}
+
+.site-nav__mobile a {
+  font-family: var(--font);
+  font-size: 1rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.8);
+  text-decoration: none;
+  transition: color 0.2s var(--ease-smooth);
+}
+
+.site-nav__mobile a:hover {
+  color: #fff;
+}
+
+/* Spacer to push content below fixed nav */
+.nav-spacer {
+  height: var(--nav-height);
+}
+
+/* ----- Responsive ----- */
+@media (max-width: 768px) {
+  .site-nav__links {
+    display: none;
+  }
+
+  .site-nav__hamburger {
+    display: flex;
+  }
+
+  .site-nav__mobile {
+    display: flex;
+    padding: 24px;
+  }
+
+  .site-nav__inner {
+    padding: 0 24px;
+  }
+}

@@ -1,0 +1,129 @@
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400&display=swap');
+
+/* =========================================================
+   FOOTER.CSS
+   ========================================================= */
+
+.site-footer {
+  background: var(--cream);
+  border-top: 1px solid var(--ink-faint);
+  overflow: hidden;
+}
+
+/* ---- Nav bar: logo + links + copyright ---- */
+.footer-nav-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 40px 6px;
+  gap: 24px;
+}
+
+.footer-logo-img {
+  height: 20px;
+  width: auto;
+  filter: grayscale(1) contrast(0.9) brightness(1.2);
+  mix-blend-mode: multiply;
+  opacity: 0.45;
+  transition: opacity 0.2s var(--ease-smooth);
+  flex-shrink: 0;
+}
+
+.footer-logo-img:hover {
+  opacity: 0.8;
+}
+
+.footer-links {
+  display: flex;
+  gap: 28px;
+  flex-wrap: wrap;
+}
+
+.footer-links a {
+  font-size: 0.82rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-mid);
+  text-decoration: none;
+  position: relative;
+  transition: color 0.2s var(--ease-smooth);
+  white-space: nowrap;
+}
+
+.footer-links a::after {
+  content: '';
+  position: absolute;
+  bottom: -3px;
+  left: 0;
+  right: 0;
+  height: 1.5px;
+  background: var(--orange);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.25s var(--ease-smooth);
+  will-change: transform;
+}
+
+.footer-links a:hover {
+  color: var(--orange);
+}
+
+.footer-links a:hover::after {
+  transform: scaleX(1);
+}
+
+.footer-copy {
+  font-size: 0.62rem;
+  font-weight: 300;
+  color: var(--ink-light);
+  letter-spacing: 0.03em;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+/* ---- Skyline: 80% wide, proportional height, no crop ---- */
+.footer-skyline {
+  position: relative;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  line-height: 0;
+}
+
+/* Four-sided fade: left, right, top, bottom all dissolve into cream */
+.footer-skyline::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(to right,  var(--cream) 0%, transparent 22%),
+    linear-gradient(to left,   var(--cream) 0%, transparent 22%),
+    linear-gradient(to bottom, var(--cream) 0%, transparent 40%),
+    linear-gradient(to top,    var(--cream) 0%, transparent 25%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.footer-skyline img {
+  width: 80%;
+  height: auto;
+  display: block;
+  /* brightness(1.08) lifts the image slightly so multiply blends the
+     warm-white background into cream without a visible edge */
+  filter: grayscale(100%) contrast(1.0) brightness(1.08);
+  mix-blend-mode: multiply;
+}
+
+/* ---- Responsive ---- */
+@media (max-width: 768px) {
+  .footer-nav-bar {
+    flex-wrap: wrap;
+    gap: 12px;
+    padding: 14px 24px;
+  }
+
+  .footer-copy {
+    width: 100%;
+  }
+}

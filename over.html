@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Over Dion — Mensinc</title>
+  <meta name="description" content="Wie is Dion Mensink? Trainer, coach en oprichter van Mensinc. Meer dan 8 jaar ervaring in gedrag, agressiemanagement en high performance.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <style>body { opacity: 0; }</style>
+
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/nav.css">
+  <link rel="stylesheet" href="css/footer.css">
+  <link rel="stylesheet" href="css/pages.css">
+
+  <style>
+    .reveal {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.55s var(--ease-smooth), transform 0.55s var(--ease-smooth);
+      will-change: opacity, transform;
+    }
+    .reveal.revealed { opacity: 1; transform: translateY(0); }
+    .reveal-delay-1 { transition-delay: 0.08s; }
+
+    /* ---- Timeline ---- */
+    .timeline {
+      padding: 80px 0;
+      border-top: 1px solid var(--ink-faint);
+    }
+    .timeline__inner {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0 40px;
+    }
+    .timeline__header {
+      margin-bottom: 56px;
+    }
+    .timeline__track {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+    /* Vertical line */
+    .timeline__track::before {
+      content: '';
+      position: absolute;
+      left: 88px;
+      top: 8px;
+      bottom: 8px;
+      width: 1px;
+      background: var(--ink-faint);
+      pointer-events: none;
+    }
+    .timeline__item {
+      display: grid;
+      grid-template-columns: 88px 28px 1fr;
+      align-items: start;
+      gap: 0;
+      padding: 20px 0;
+      cursor: default;
+    }
+    .timeline__year {
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      color: var(--ink-light);
+      padding-top: 3px;
+      text-align: right;
+      padding-right: 20px;
+      transition: color 0.2s var(--ease-smooth);
+    }
+    /* Dot */
+    .timeline__dot {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      padding-top: 6px;
+    }
+    .timeline__dot::before {
+      content: '';
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--ink-faint);
+      display: block;
+      transition: background 0.2s var(--ease-smooth), transform 0.2s var(--ease-smooth);
+      flex-shrink: 0;
+    }
+    .timeline__body {
+      padding-left: 20px;
+    }
+    .timeline__title {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--ink);
+      line-height: 1.3;
+      transition: color 0.2s var(--ease-smooth);
+      text-decoration: none;
+      display: inline;
+      background-image: linear-gradient(var(--orange), var(--orange));
+      background-size: 0% 1px;
+      background-repeat: no-repeat;
+      background-position: left bottom;
+      transition: color 0.2s var(--ease-smooth), background-size 0.25s var(--ease-smooth);
+    }
+    .timeline__desc {
+      font-size: 0.88rem;
+      color: var(--ink-light);
+      line-height: 1.6;
+      margin-top: 4px;
+      max-width: 52ch;
+    }
+
+    /* Hover state */
+    .timeline__item:hover .timeline__year {
+      color: var(--orange);
+    }
+    .timeline__item:hover .timeline__dot::before {
+      background: var(--orange);
+      transform: scale(1.35);
+    }
+    .timeline__item:hover .timeline__title {
+      color: var(--orange);
+      background-size: 100% 1px;
+    }
+
+    /* Two-role grid */
+    .over-roles {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2px;
+    }
+    .over-role {
+      background: var(--cream-dark);
+      border: 1px solid var(--ink-faint);
+      padding: 40px 32px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .over-role__tag {
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--ink-light);
+    }
+    .over-role__title {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--ink);
+      letter-spacing: 0.02em;
+    }
+    .over-role__body {
+      font-size: 0.9rem;
+      color: var(--ink-mid);
+      line-height: 1.7;
+    }
+    .over-role__link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--ink-mid);
+      text-decoration: none;
+      margin-top: auto;
+      transition: color 0.2s var(--ease-smooth), gap 0.2s var(--ease-smooth);
+    }
+    .over-role__link:hover { color: var(--orange); gap: 14px; }
+    .over-role__link::after { content: '→'; }
+
+    @media (max-width: 768px) {
+      .timeline__track::before { left: 68px; }
+      .timeline__item { grid-template-columns: 68px 24px 1fr; }
+      .timeline__inner { padding: 0 24px; }
+    }
+    @media (max-width: 600px) {
+      .over-roles { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVIGATION -->
+  <nav class="site-nav" role="navigation" aria-label="Hoofdnavigatie">
+    <div class="site-nav__inner">
+      <a href="index.html" class="site-nav__logo" aria-label="Mensinc — naar startpagina">
+        <img src="images/Logo_Mensic.png" alt="Mensinc" class="nav-logo-img">
+      </a>
+      <ul class="site-nav__links" role="list">
+        <li><a href="over.html" class="active">Over Dion</a></li>
+        <li><a href="trainer.html">Trainer</a></li>
+        <li><a href="coach.html">Coach</a></li>
+        <li><a href="cases.html">Cases</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+      <button class="site-nav__hamburger" aria-label="Menu openen" aria-expanded="false" aria-controls="mobile-menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <nav class="site-nav__mobile" id="mobile-menu" aria-label="Mobiele navigatie">
+      <a href="over.html">Over Dion</a>
+      <a href="trainer.html">Trainer</a>
+      <a href="coach.html">Coach</a>
+      <a href="cases.html">Cases</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </nav>
+  <div class="nav-spacer"></div>
+
+  <main>
+
+    <!-- BIO -->
+    <section class="over-bio section" aria-label="Biografie">
+      <div class="over-bio__inner">
+        <div class="over-bio__image-wrap reveal">
+          <img class="over-bio__image" src="images/dion-coach.png" alt="Portret van Dion Mensink" loading="lazy">
+        </div>
+        <div class="over-bio__text">
+          <span class="label reveal">Wie is Dion?</span>
+          <h2 class="reveal">Trainer. Coach.<br>Mens.</h2>
+          <p class="reveal">
+            Dion Mensink is de oprichter van Mensinc. Zijn werk draait om één ding: mensen helpen beter worden in wat ze doen — als professional, als leider en als persoon.
+          </p>
+          <p class="reveal">
+            Na jarenlange ervaring in het trainen van professionals in agressief gedrag en conflictsituaties, begon Dion ook te coachen. Niet vanuit theorie, maar vanuit bewezen methode en een scherp oog voor wat iemand tegenhoudt.
+          </p>
+          <p class="reveal">
+            Zijn aanpak is direct, eerlijk en mensgericht. Dion gelooft dat blijvende verandering begint bij het begrijpen van gedrag — en dat echte groei vraagt om confrontatie én verbinding.
+          </p>
+          <div class="divider reveal"></div>
+          <a class="btn reveal" href="contact.html">Neem contact op</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- TIMELINE -->
+    <section class="timeline" aria-label="Tijdlijn">
+      <div class="timeline__inner">
+        <div class="timeline__header reveal">
+          <span class="label">Achtergrond</span>
+          <h2>De weg van Dion</h2>
+        </div>
+        <div class="timeline__track">
+
+          <div class="timeline__item reveal">
+            <span class="timeline__year">2002</span>
+            <div class="timeline__dot"></div>
+            <div class="timeline__body">
+              <span class="timeline__title">Acteur</span>
+              <p class="timeline__desc">Rollen in De Passievrucht, Maggi-reclame, Center Parcs-reclame, Hoe Overleef Ik, en meer. Het podium als eerste podium.</p>
+            </div>
+          </div>
+
+          <div class="timeline__item reveal">
+            <span class="timeline__year">2007</span>
+            <div class="timeline__dot"></div>
+            <div class="timeline__body">
+              <span class="timeline__title">Junior Songfestival finalist</span>
+              <p class="timeline__desc">Finalist op het Junior Songfestival — samen met zijn broer Serge Mensink. Presteren onder druk, op het grootste podium.</p>
+            </div>
+          </div>
+
+          <div class="timeline__item reveal">
+            <span class="timeline__year">2018</span>
+            <div class="timeline__dot"></div>
+            <div class="timeline__body">
+              <span class="timeline__title">Videoreeks 'Het Fundament' gestart</span>
+              <p class="timeline__desc">Eerste stappen in contentcreatie rondom gedrag, mindset en persoonlijke ontwikkeling. De basis voor alles wat volgde.</p>
+            </div>
+          </div>
+
+          <div class="timeline__item reveal">
+            <span class="timeline__year">2018</span>
+            <div class="timeline__dot"></div>
+            <div class="timeline__body">
+              <span class="timeline__title">Eerste agressietraining als acteur</span>
+              <p class="timeline__desc">Bijgewoond als acteur. De vonk. Het snijvlak van acteren en gedragsverandering bleek precies zijn domein.</p>
+            </div>
+          </div>
+
+          <div class="timeline__item reveal">
+            <span class="timeline__year">2018</span>
+            <div class="timeline__dot"></div>
+            <div class="timeline__body">
+              <span class="timeline__title">Coachingsbedrijf gestart</span>
+              <p class="timeline__desc">Samen met Serge Mensink — met een achtergrond in de sportwereld — gestart met coachen. Prestatie als gemeenschappelijke taal.</p>
+            </div>
+          </div>
+
+          <div class="timeline__item reveal">
+            <span class="timeline__year">2019</span>
+            <div class="timeline__dot"></div>
+            <div class="timeline__body">
+              <span class="timeline__title">Opgeleid tot agressietrainer</span>
+              <p class="timeline__desc">Van acteur tot gecertificeerd trainer. De vertaalslag van gedrag begrijpen naar gedrag veranderen.</p>
+            </div>
+          </div>
+
+          <div class="timeline__item reveal">
+            <span class="timeline__year">2021</span>
+            <div class="timeline__dot"></div>
+            <div class="timeline__body">
+              <span class="timeline__title">Mensinc gestart — en het vloog</span>
+              <p class="timeline__desc">Het coachingsbedrijf raakte in een stroomversnelling: ~€100.000 winst in 3 jaar, met minder dan één volle werkdag per week. Reizen en werken gecombineerd. Vrijheid als bewijs van het systeem.</p>
+            </div>
+          </div>
+
+          <div class="timeline__item reveal">
+            <span class="timeline__year">2022</span>
+            <div class="timeline__dot"></div>
+            <div class="timeline__body">
+              <span class="timeline__title">Alles verloren — financieel failliet</span>
+              <p class="timeline__desc">Hij verloor het allemaal. Alleen zijn BV's kon hij net aan draaiende houden. Het moment dat alles op het spel stond.</p>
+            </div>
+          </div>
+
+          <div class="timeline__item reveal">
+            <span class="timeline__year">2022–2024</span>
+            <div class="timeline__dot"></div>
+            <div class="timeline__body">
+              <span class="timeline__title">De meest essentiële periode</span>
+              <p class="timeline__desc">Veel gefaald, veel geleerd. Zichzelf en zijn bedrijf opnieuw uitgevonden. Achteraf de periode die alles betekende.</p>
+            </div>
+          </div>
+
+          <div class="timeline__item reveal">
+            <span class="timeline__year">2025</span>
+            <div class="timeline__dot"></div>
+            <div class="timeline__body">
+              <span class="timeline__title">Agressiewerk en coaching samen onder Mensinc</span>
+              <p class="timeline__desc">De twee werelden officieel gecombineerd onder één naam: Mensinc — het bedrijf dat de mens versterkt. Mens Incorporation.</p>
+            </div>
+          </div>
+
+          <div class="timeline__item reveal">
+            <span class="timeline__year">2026</span>
+            <div class="timeline__dot"></div>
+            <div class="timeline__body">
+              <span class="timeline__title">Het vuur brandt. Op een sterker fundament dan ooit.</span>
+              <p class="timeline__desc">Missiegevoel groter dan ooit. Gebouwd op alles wat ervoor kwam — de successen én de breuken. Wil jij mee-profiteren?</p>
+            </div>
+          </div>
+
+          <!-- Heden CTA -->
+          <div class="timeline__item reveal">
+            <span class="timeline__year">Heden</span>
+            <div class="timeline__dot"></div>
+            <div class="timeline__body">
+              <span class="timeline__title">Jouw succes</span>
+              <p class="timeline__desc">Het volgende hoofdstuk is nog niet geschreven. Dat schrijven we samen.</p>
+            </div>
+          </div>
+
+        </div>
+        <div class="reveal" style="margin-top: 48px;">
+          <a class="btn btn--filled" href="contact.html">Nu jij</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- TWO ROLES -->
+    <section class="section--tight" aria-label="Twee rollen">
+      <div class="container">
+        <span class="label reveal" style="margin-bottom: 32px; display: block;">Wat Dion doet</span>
+        <div class="over-roles">
+          <div class="over-role reveal">
+            <span class="over-role__tag">Rol 01</span>
+            <h3 class="over-role__title">Dion als Trainer</h3>
+            <p class="over-role__body">Agressiemanagement, gedragsverandering en incompany trainingen voor organisaties in zorg, overheid en onderwijs. Offline, online en mix.</p>
+            <a class="over-role__link" href="trainer.html">Meer over training</a>
+          </div>
+          <div class="over-role reveal reveal-delay-1">
+            <span class="over-role__tag">Rol 02</span>
+            <h3 class="over-role__title">Dion als Coach</h3>
+            <p class="over-role__body">1-op-1 coaching van high performers en ondernemers op omzetverhoging, focus en leiderschap. Altijd offline, altijd persoonlijk.</p>
+            <a class="over-role__link" href="coach.html">Meer over coaching</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="page-cta" aria-label="Contact">
+      <div class="page-cta__inner">
+        <span class="label reveal">Leer Dion kennen</span>
+        <h2 class="page-cta__title reveal">Neem vrijblijvend contact op.</h2>
+        <a class="btn btn--filled reveal" href="contact.html">Schrijf een bericht</a>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="footer-nav-bar">
+      <a href="index.html" aria-label="Mensinc — startpagina">
+        <img src="images/Logo_Mensic.png" alt="Mensinc" class="footer-logo-img">
+      </a>
+      <nav class="footer-links" aria-label="Footer navigatie">
+        <a href="over.html">Over Dion</a>
+        <a href="trainer.html">Trainer</a>
+        <a href="coach.html">Coach</a>
+        <a href="cases.html">Cases</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+      <span class="footer-copy">© 2026 Mensinc · Kerkstraat 239, Oostzaan</span>
+    </div>
+    <div class="footer-skyline">
+      <img src="images/amsterdam-skyline.jpg" alt="Amsterdam grachtenhuizen — gravure illustratie" loading="lazy">
+    </div>
+  </footer>
+
+  <script src="js/transitions.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

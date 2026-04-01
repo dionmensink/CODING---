@@ -1,0 +1,333 @@
+﻿<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact — Mensinc</title>
+  <meta name="description" content="Neem contact op met Dion Mensink van Mensinc voor training in agressiemanagement of high performance coaching.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <style>body { opacity: 0; }</style>
+
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/nav.css">
+  <link rel="stylesheet" href="css/footer.css">
+  <link rel="stylesheet" href="css/pages.css">
+
+  <style>
+    .reveal {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.55s var(--ease-smooth), transform 0.55s var(--ease-smooth);
+      will-change: opacity, transform;
+    }
+    .reveal.revealed { opacity: 1; transform: translateY(0); }
+
+    /* ---- Contact split layout ---- */
+    .contact-split {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      min-height: calc(100vh - var(--nav-height));
+      background: var(--cream);
+    }
+
+    /* Left: form panel */
+    .contact-split__panel {
+      padding: 72px 60px 80px;
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+      justify-content: center;
+    }
+
+    .contact-split__intro { display: flex; flex-direction: column; gap: 10px; }
+
+    .contact-split__title {
+      font-size: clamp(1.9rem, 3vw, 2.8rem);
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      color: var(--ink);
+      line-height: 1.1;
+      margin: 0;
+    }
+
+    /* Cialdini: Social proof — shows others have already committed */
+    .contact-split__proof {
+      font-size: 0.88rem;
+      color: var(--ink-light);
+      margin-top: 2px;
+    }
+    .contact-split__stat {
+      color: var(--orange);
+      font-weight: 700;
+      font-size: 1rem;
+    }
+
+    /* Cialdini: Authority — compact credential line */
+    .contact-split__authority {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--ink-light);
+      border-top: 1px solid var(--ink-faint);
+      padding-top: 16px;
+    }
+    .contact-split__authority-tag {
+      color: var(--orange);
+      font-weight: 700;
+    }
+
+    /* Cialdini: Scarcity — pulsing dot + urgency text near CTA */
+    .contact-split__urgency {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      font-size: 0.8rem;
+      color: var(--ink-mid);
+      margin-bottom: 4px;
+    }
+    .contact-split__urgency-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--orange);
+      flex-shrink: 0;
+      animation: pulse-dot 2.2s ease-in-out infinite;
+    }
+    @keyframes pulse-dot {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50%       { opacity: 0.45; transform: scale(0.7); }
+    }
+
+    .contact-split__response {
+      font-size: 0.7rem;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      color: var(--ink-light);
+    }
+
+    /* Right: sketch image */
+    .contact-split__image {
+      position: relative;
+      overflow: hidden;
+      background: var(--cream);
+    }
+    .contact-split__image img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 20%;
+      filter: grayscale(100%) contrast(1.05) brightness(1.06);
+      mix-blend-mode: multiply;
+    }
+    /* Fade left edge into the form panel */
+    .contact-split__image::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(to right,  var(--cream) 0%, transparent 28%),
+        linear-gradient(to bottom, var(--cream) 0%, transparent 12%),
+        linear-gradient(to top,    var(--cream) 0%, transparent 12%);
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    /* Form success state */
+    .form-success {
+      display: none;
+      padding: 24px;
+      border: 1px solid var(--ink-faint);
+      background: var(--cream-dark);
+    }
+    .form-success.visible { display: block; }
+    .form-success p { font-size: 0.95rem; color: var(--ink-mid); max-width: none; }
+
+    @media (max-width: 900px) {
+      .contact-split { grid-template-columns: 1fr; }
+      .contact-split__image { height: 55vw; }
+      .contact-split__image img { position: absolute; }
+      .contact-split__panel { padding: 56px 24px 64px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVIGATION -->
+  <nav class="site-nav" role="navigation" aria-label="Hoofdnavigatie">
+    <div class="site-nav__inner">
+      <a href="index.html" class="site-nav__logo" aria-label="Mensinc — naar startpagina">
+        <img src="images/Logo_Mensic.png" alt="Mensinc" class="nav-logo-img">
+      </a>
+      <ul class="site-nav__links" role="list">
+        <li><a href="over.html">Over Dion</a></li>
+        <li><a href="trainer.html">Trainer</a></li>
+        <li><a href="coach.html">Coach</a></li>
+        <li><a href="cases.html">Cases</a></li>
+        <li><a href="contact.html" class="active">Contact</a></li>
+      </ul>
+      <button class="site-nav__hamburger" aria-label="Menu openen" aria-expanded="false" aria-controls="mobile-menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <nav class="site-nav__mobile" id="mobile-menu" aria-label="Mobiele navigatie">
+      <a href="over.html">Over Dion</a>
+      <a href="trainer.html">Trainer</a>
+      <a href="coach.html">Coach</a>
+      <a href="cases.html">Cases</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </nav>
+  <div class="nav-spacer"></div>
+
+  <main>
+
+    <!-- CONTACT SPLIT: form left, sketch right -->
+    <section class="contact-split" aria-label="Contactformulier">
+
+      <!-- Left: form panel -->
+      <div class="contact-split__panel reveal">
+
+        <div class="contact-split__intro">
+          <span class="label">Vrijblijvend kennismaken</span>
+          <h1 class="contact-split__title">Klaar om<br>te groeien?</h1>
+          <!-- Cialdini: Social proof -->
+          <p class="contact-split__proof">
+            <span class="contact-split__stat">300+</span> professionals gingen je voor.
+          </p>
+        </div>
+
+        <form class="contact-form" id="contact-form" novalidate>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+            <div class="form-group">
+              <label for="naam">Naam *</label>
+              <input type="text" id="naam" name="naam" placeholder="Jouw naam" required autocomplete="name">
+            </div>
+            <div class="form-group">
+              <label for="organisatie">Organisatie</label>
+              <input type="text" id="organisatie" name="organisatie" placeholder="Bedrijfsnaam" autocomplete="organization">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="email">E-mailadres *</label>
+            <input type="email" id="email" name="email" placeholder="jouw@email.nl" required autocomplete="email">
+          </div>
+
+          <div class="form-group">
+            <label for="interesse">Waarvoor neem je contact op?</label>
+            <select id="interesse" name="interesse">
+              <option value="">— Selecteer een optie —</option>
+              <option value="trainer">Training (agressiemanagement / gedrag)</option>
+              <option value="coach">Coaching (high performance)</option>
+              <option value="anders">Anders / overig</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="bericht">Bericht *</label>
+            <textarea id="bericht" name="bericht" placeholder="Vertel Dion kort waar je mee zit..." required></textarea>
+          </div>
+
+          <!-- Cialdini: Scarcity — pulsing dot, urgency near CTA -->
+          <div class="contact-split__urgency">
+            <span class="contact-split__urgency-dot"></span>
+            Beperkte beschikbaarheid — <strong style="color:var(--orange); font-weight:600;">&nbsp;reageer snel</strong>
+          </div>
+
+          <div class="form-submit" style="display:flex; flex-direction:column; gap:10px; align-items:flex-start;">
+            <button type="submit" class="btn btn--filled">Verstuur bericht</button>
+            <span class="contact-split__response">Dion reageert persoonlijk · binnen 2 werkdagen</span>
+          </div>
+
+        </form>
+
+        <!-- Cialdini: Authority — credentials below form -->
+        <div class="contact-split__authority">
+          <span><span class="contact-split__authority-tag">8+</span> jaar ervaring</span>
+          <span>·</span>
+          <span><span class="contact-split__authority-tag">300+</span> trajecten</span>
+          <span>·</span>
+          <span>Offline · Persoonlijk</span>
+        </div>
+
+        <!-- Success message -->
+        <div class="form-success" id="form-success" role="alert" aria-live="polite">
+          <p><strong>Bericht ontvangen.</strong> Dion neemt binnen 2 werkdagen contact met je op.</p>
+        </div>
+
+      </div>
+
+      <!-- Right: sketch image -->
+      <div class="contact-split__image" aria-hidden="true">
+        <img src="images/dion bellend sketch.png" alt="">
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="footer-nav-bar">
+      <a href="index.html" aria-label="Mensinc — startpagina">
+        <img src="images/Logo_Mensic.png" alt="Mensinc" class="footer-logo-img">
+      </a>
+      <nav class="footer-links" aria-label="Footer navigatie">
+        <a href="over.html">Over Dion</a>
+        <a href="trainer.html">Trainer</a>
+        <a href="coach.html">Coach</a>
+        <a href="cases.html">Cases</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+      <span class="footer-copy">© 2026 Mensinc · Kerkstraat 239, Oostzaan</span>
+    </div>
+    <div class="footer-skyline">
+      <img src="images/amsterdam-skyline.jpg" alt="Amsterdam grachtenhuizen — gravure illustratie" loading="lazy">
+    </div>
+  </footer>
+
+  <script src="js/transitions.js"></script>
+  <script src="js/main.js"></script>
+  <script>
+    // Simple client-side form handling
+    // Replace this with your actual form backend (Formspree, Netlify Forms, etc.)
+    (function () {
+      var form = document.getElementById('contact-form');
+      var success = document.getElementById('form-success');
+      if (!form) return;
+
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+
+        // Basic required field validation
+        var valid = true;
+        form.querySelectorAll('[required]').forEach(function (field) {
+          if (!field.value.trim()) {
+            field.style.borderColor = 'var(--ink-mid)';
+            valid = false;
+          } else {
+            field.style.borderColor = '';
+          }
+        });
+        if (!valid) return;
+
+        // TODO: replace with real form submission, e.g.:
+        // fetch('https://formspree.io/f/yourformid', { method: 'POST', body: new FormData(form) })
+
+        form.style.display = 'none';
+        success.classList.add('visible');
+      });
+    })();
+  </script>
+</body>
+</html>
