@@ -41,88 +41,83 @@
   }
 
   /* -------------------------------------------------------
-     Scroll-driven card flip — mobile
-
-     Each .card-container is 220vh tall with .card-inner
-     as position:sticky inside it. This gives each card
-     its own independent scroll zone.
-
-     Per card scroll progress 0→1:
-       0.00–0.20  front visible, nothing happens (user settles)
-       0.20–0.80  card flips smoothly front → back
-       0.80–1.00  back visible, user moves to next card
-  ------------------------------------------------------- */
-  function initMobileScrollFlip() {
-    if (!isMobile) return;
-
-    var cards  = Array.from(document.querySelectorAll('.card-container'));
-    if (!cards.length) return;
-    var inners = cards.map(function (c) { return c.querySelector('.card-inner'); });
-
-    // Cache layout — read once, refresh on resize only
-    var layouts = [];
-    function cacheLayout() {
-      var vh = window.innerHeight;
-      layouts = cards.map(function (card) {
-        var top       = card.getBoundingClientRect().top + window.scrollY;
-        var scrollZone = card.offsetHeight - vh;
-        return { top: top, scrollZone: scrollZone };
-      });
-    }
-    cacheLayout();
-    window.addEventListener('resize', function () {
-      cacheLayout();
-      update();
-    }, { passive: true });
-
-    function clamp(v, lo, hi) { return v < lo ? lo : v > hi ? hi : v; }
-    function map01(v, a, b)   { return clamp((v - a) / (b - a), 0, 1); }
-    // Ease in-out cubic — naturally decelrates at full flip
-    function ease(t) { return t < 0.5 ? 4*t*t*t : 1 - Math.pow(-2*t+2,3)/2; }
-
-    var prevRots = cards.map(function () { return -1; });
-    var ticking  = false;
-
-    function update() {
-      var sy = window.scrollY;
-      cards.forEach(function (card, i) {
-        var inner = inners[i];
-        if (!inner) return;
-        var lay = layouts[i];
-        if (!lay || lay.scrollZone <= 0) return;
-
-        var p   = clamp((sy - lay.top) / lay.scrollZone, 0, 1);
-        var rot = ease(map01(p, 0.20, 0.80)) * 180;
-
-        if (Math.abs(rot - prevRots[i]) > 0.3) {
-          inner.style.transform = 'rotateY(' + rot.toFixed(1) + 'deg)';
-          prevRots[i] = rot;
-        }
-      });
-      ticking = false;
-    }
-
-    window.addEventListener('scroll', function () {
-      if (!ticking) { requestAnimationFrame(update); ticking = true; }
-    }, { passive: true });
-
-    update();
-  }
-
-  /* -------------------------------------------------------
-     Tap-to-flip — non-mobile touch devices (tablets etc.)
+     Swipe-to-flip — mobile touch
+     Drag left to reveal back, drag right to go back.
+     1:1 with finger during drag, snaps at 50% threshold.
+     Feels like physically handling a real card.
   ------------------------------------------------------- */
   function initCardFlip() {
-    if (!isTouch || isMobile) return; // mobile uses scroll-flip instead
+    if (!isTouch) return;
 
-    var cards = document.querySelectorAll('.card-container');
-    cards.forEach(function (card) {
-      card.addEventListener('click', function (e) {
-        if (!card.classList.contains('flipped')) {
-          card.classList.add('flipped');
-          e.preventDefault();
+    var SNAP    = 'transform 0.38s cubic-bezier(0.4, 0, 0.2, 1)';
+    var NOSNAP  = 'none';
+    var THRESHOLD = 0.28; // fraction of card width to trigger flip
+
+    document.querySelectorAll('.card-container').forEach(function (card) {
+      var inner   = card.querySelector('.card-inner');
+      if (!inner) return;
+
+      var baseRot  = 0;   // 0 = front, 180 = back
+      var startX   = 0;
+      var startY   = 0;
+      var dragging = false;
+      var isHoriz  = false;
+
+      card.addEventListener('touchstart', function (e) {
+        if (e.target.closest('.card-back__cta')) return;
+        startX   = e.touches[0].clientX;
+        startY   = e.touches[0].clientY;
+        dragging = true;
+        isHoriz  = false;
+        inner.style.transition = NOSNAP;
+      }, { passive: true });
+
+      card.addEventListener('touchmove', function (e) {
+        if (!dragging) return;
+        var dx = e.touches[0].clientX - startX;
+        var dy = e.touches[0].clientY - startY;
+
+        // Decide axis on first meaningful movement
+        if (!isHoriz && Math.abs(dx) < 6 && Math.abs(dy) < 6) return;
+        if (!isHoriz) {
+          isHoriz = Math.abs(dx) > Math.abs(dy);
+          if (!isHoriz) { dragging = false; return; } // vertical — hand back to browser
         }
-      });
+
+        e.preventDefault(); // now own the gesture
+        var delta  = -(dx / card.offsetWidth) * 180;
+        var newRot = Math.max(0, Math.min(180, baseRot + delta));
+        inner.style.transform = 'rotateY(' + newRot.toFixed(1) + 'deg)';
+      }, { passive: false });
+
+      card.addEventListener('touchend', function (e) {
+        if (!dragging) return;
+        dragging = false;
+
+        var dx = e.changedTouches[0].clientX - startX;
+
+        inner.style.transition = SNAP;
+
+        if (baseRot === 0) {
+          // Front showing: flip if swiped left enough
+          if (dx < -(card.offsetWidth * THRESHOLD)) {
+            baseRot = 180;
+            card.classList.add('flipped');
+          } else {
+            baseRot = 0;
+          }
+        } else {
+          // Back showing: unflip if swiped right enough
+          if (dx > (card.offsetWidth * THRESHOLD)) {
+            baseRot = 0;
+            card.classList.remove('flipped');
+          } else {
+            baseRot = 180;
+          }
+        }
+
+        inner.style.transform = 'rotateY(' + baseRot + 'deg)';
+      }, { passive: true });
     });
   }
 
@@ -244,14 +239,8 @@
     document.querySelectorAll('.card-container[data-href]').forEach(function (card) {
       card.addEventListener('click', function (e) {
         if (e.target.closest('.card-back__cta')) return;
-
-        // On mobile, only navigate when back is showing (rot > 90°)
-        if (isMobile) {
-          var inner = card.querySelector('.card-inner');
-          var m = inner && inner.style.transform.match(/rotateY\(([0-9.]+)deg\)/);
-          if (!m || parseFloat(m[1]) < 90) return;
-        }
-
+        // On touch: only navigate when back is visible
+        if (isTouch && !card.classList.contains('flipped')) return;
         var href = card.getAttribute('data-href');
         if (href) {
           document.body.classList.add('fade-out');
@@ -295,7 +284,6 @@
   ------------------------------------------------------- */
   document.addEventListener('DOMContentLoaded', function () {
     initMobileNav();
-    initMobileScrollFlip();
     initCardFlip();
     initParallax();
     initActiveNav();
