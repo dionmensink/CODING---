@@ -41,83 +41,43 @@
   }
 
   /* -------------------------------------------------------
-     Swipe-to-flip — mobile touch
-     Drag left to reveal back, drag right to go back.
-     1:1 with finger during drag, snaps at 50% threshold.
-     Feels like physically handling a real card.
+     Tap-to-flip — touch devices
+     Distinguishes a tap (no/tiny movement) from a scroll.
+     Tap flips the card. Second tap unflips.
   ------------------------------------------------------- */
   function initCardFlip() {
     if (!isTouch) return;
 
-    var SNAP    = 'transform 0.38s cubic-bezier(0.4, 0, 0.2, 1)';
-    var NOSNAP  = 'none';
-    var THRESHOLD = 0.28; // fraction of card width to trigger flip
-
     document.querySelectorAll('.card-container').forEach(function (card) {
-      var inner   = card.querySelector('.card-inner');
+      var inner = card.querySelector('.card-inner');
       if (!inner) return;
 
-      var baseRot  = 0;   // 0 = front, 180 = back
-      var startX   = 0;
-      var startY   = 0;
-      var dragging = false;
-      var isHoriz  = false;
+      var startX = 0, startY = 0, moved = false;
 
       card.addEventListener('touchstart', function (e) {
-        if (e.target.closest('.card-back__cta')) return;
-        startX   = e.touches[0].clientX;
-        startY   = e.touches[0].clientY;
-        dragging = true;
-        isHoriz  = false;
-        inner.style.transition = NOSNAP;
+        startX = e.touches[0].clientX;
+        startY = e.touches[0].clientY;
+        moved  = false;
       }, { passive: true });
 
-      card.addEventListener('touchmove', function (e) {
-        if (!dragging) return;
-        var dx = e.touches[0].clientX - startX;
-        var dy = e.touches[0].clientY - startY;
-
-        // Decide axis on first meaningful movement
-        if (!isHoriz && Math.abs(dx) < 6 && Math.abs(dy) < 6) return;
-        if (!isHoriz) {
-          isHoriz = Math.abs(dx) > Math.abs(dy);
-          if (!isHoriz) { dragging = false; return; } // vertical — hand back to browser
-        }
-
-        e.preventDefault(); // now own the gesture
-        var delta  = -(dx / card.offsetWidth) * 180;
-        var newRot = Math.max(0, Math.min(180, baseRot + delta));
-        inner.style.transform = 'rotateY(' + newRot.toFixed(1) + 'deg)';
-      }, { passive: false });
+      card.addEventListener('touchmove', function () {
+        moved = true; // user is scrolling — ignore on touchend
+      }, { passive: true });
 
       card.addEventListener('touchend', function (e) {
-        if (!dragging) return;
-        dragging = false;
+        // Ignore if finger moved (scroll gesture)
+        var dx = Math.abs(e.changedTouches[0].clientX - startX);
+        var dy = Math.abs(e.changedTouches[0].clientY - startY);
+        if (moved || dx > 10 || dy > 10) return;
 
-        var dx = e.changedTouches[0].clientX - startX;
+        // Ignore taps on the CTA link
+        if (e.target.closest('.card-back__cta')) return;
 
-        inner.style.transition = SNAP;
+        e.preventDefault(); // prevent ghost click
 
-        if (baseRot === 0) {
-          // Front showing: flip if swiped left enough
-          if (dx < -(card.offsetWidth * THRESHOLD)) {
-            baseRot = 180;
-            card.classList.add('flipped');
-          } else {
-            baseRot = 0;
-          }
-        } else {
-          // Back showing: unflip if swiped right enough
-          if (dx > (card.offsetWidth * THRESHOLD)) {
-            baseRot = 0;
-            card.classList.remove('flipped');
-          } else {
-            baseRot = 180;
-          }
-        }
-
-        inner.style.transform = 'rotateY(' + baseRot + 'deg)';
-      }, { passive: true });
+        var flipped = card.classList.contains('flipped');
+        card.classList.toggle('flipped', !flipped);
+      }, { passive: false });
     });
   }
 
