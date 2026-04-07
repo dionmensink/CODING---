@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Mensinc — Persoonlijk Meesterschap</title>
-  <meta name="description" content="Dion Mensink als trainer of coach — persoonlijk meesterschap door agressiemanagement en high performance coaching.">
+  <meta name="description" content="Dion Mensink als trainer of coach — agressiemanagement en high performance coaching.">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -15,7 +15,6 @@
   <link rel="stylesheet" href="css/nav.css">
   <link rel="stylesheet" href="css/footer.css">
   <link rel="stylesheet" href="css/landing.css">
-  <link rel="stylesheet" href="css/pages.css">
 
   <style>
     .reveal {
@@ -27,60 +26,6 @@
     .reveal.revealed { opacity: 1; transform: translateY(0); }
     .reveal-delay-1 { transition-delay: 0.08s; }
     .reveal-delay-2 { transition-delay: 0.16s; }
-
-    /* Two-column content sections */
-    .home-split {
-      padding: 96px 0;
-      border-top: 1px solid var(--ink-faint);
-    }
-    .home-split--dark {
-      background: var(--cream-dark);
-    }
-    .home-split__inner {
-      max-width: var(--max-width);
-      margin: 0 auto;
-      padding: 0 40px;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 80px;
-      align-items: center;
-    }
-    .home-split__image {
-      aspect-ratio: 3 / 4;
-      overflow: hidden;
-      border: 1px solid var(--ink-faint);
-    }
-    .home-split__image img {
-      width: 100%; height: 100%;
-      object-fit: cover;
-      filter: grayscale(100%) contrast(1.08);
-      display: block;
-    }
-    .home-split__text {
-      display: flex;
-      flex-direction: column;
-      gap: 24px;
-    }
-    .home-split__list {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 11px;
-    }
-    .home-split__list li {
-      display: flex;
-      align-items: flex-start;
-      gap: 12px;
-      font-size: 0.92rem;
-      color: var(--ink-mid);
-      line-height: 1.45;
-    }
-    .home-split__list li::before {
-      content: '—';
-      color: var(--ink-faint);
-      flex-shrink: 0;
-      margin-top: 1px;
-    }
 
     /* Stats strip */
     .home-stats {
@@ -122,132 +67,89 @@
       color: rgba(245,240,232,0.45);
     }
 
-    /* Testimonials */
-    .home-testimonials {
-      padding: 96px 0;
+    /* Contact CTA */
+    .home-contact {
+      padding: 88px 0;
       border-top: 1px solid var(--ink-faint);
     }
-    .home-testimonials__inner {
-      max-width: var(--max-width);
-      margin: 0 auto;
-      padding: 0 40px;
-    }
-    .home-testimonials__header {
-      margin-bottom: 56px;
-    }
-    .home-testimonials__grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 32px;
-    }
-    .home-testimonial {
-      display: flex;
-      flex-direction: column;
-      gap: 18px;
-    }
-    .home-testimonial__mark {
-      font-size: 2.8rem;
-      font-weight: 700;
-      color: var(--ink-faint);
-      line-height: 1;
-      font-style: italic;
-      font-family: Georgia, serif;
-    }
-    .home-testimonial__text {
-      font-size: 0.92rem;
-      font-style: italic;
-      color: var(--ink-mid);
-      line-height: 1.75;
-    }
-    .home-testimonial__author {
-      border-top: 1px solid var(--ink-faint);
-      padding-top: 14px;
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-    }
-    .home-testimonial__name {
-      font-size: 0.82rem;
-      font-weight: 600;
-      color: var(--ink);
-      letter-spacing: 0.04em;
-    }
-    .home-testimonial__role {
-      font-size: 0.72rem;
-      font-weight: 300;
-      color: var(--ink-light);
-      letter-spacing: 0.04em;
-    }
-
-/* Mid CTA */
-    .home-cta-mid {
-      border-top: 1px solid var(--ink-faint);
-      padding: 72px 0;
-      background: var(--cream);
-    }
-    .home-cta-mid__inner {
+    .home-contact__inner {
       max-width: var(--max-width);
       margin: 0 auto;
       padding: 0 40px;
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 72px;
+      gap: 80px;
       align-items: center;
     }
-    .home-cta-mid__title {
-      font-size: clamp(1.55rem, 2.6vw, 2.3rem);
+    .home-contact__title {
+      font-size: clamp(1.7rem, 3vw, 2.6rem);
       font-weight: 700;
-      line-height: 1.2;
+      line-height: 1.15;
       letter-spacing: 0.01em;
       color: var(--ink);
       margin: 0;
     }
-    .home-cta-mid__title .hl {
+    .home-contact__title .hl {
       color: var(--orange);
       text-decoration: underline;
       text-decoration-color: rgba(26,122,74,0.3);
       text-underline-offset: 4px;
     }
-    .home-cta-mid__body {
+    .home-contact__body {
       display: flex;
       flex-direction: column;
-      gap: 28px;
+      gap: 24px;
     }
-    .home-cta-mid__list {
+    .home-contact__list {
       list-style: none;
       display: flex;
       flex-direction: column;
-      gap: 13px;
+      gap: 11px;
     }
-    .home-cta-mid__list li {
+    .home-contact__list li {
       font-size: 0.9rem;
       color: var(--ink-mid);
       line-height: 1.5;
       display: flex;
       gap: 12px;
     }
-    .home-cta-mid__list li::before {
+    .home-contact__list li::before {
       content: '—';
       color: var(--ink-faint);
       flex-shrink: 0;
     }
-    .home-cta-mid__list .ac { color: var(--orange); font-weight: 600; }
+    .home-contact__list .ac {
+      color: var(--orange);
+      font-weight: 600;
+    }
+    .home-contact__urgency {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      font-size: 0.8rem;
+      color: var(--ink-mid);
+    }
+    .home-contact__dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--orange);
+      flex-shrink: 0;
+      animation: pulse-dot 2.2s ease-in-out infinite;
+    }
+    @keyframes pulse-dot {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50%       { opacity: 0.4; transform: scale(0.7); }
+    }
 
     @media (max-width: 900px) {
-      .home-split__inner { grid-template-columns: 1fr; gap: 40px; }
-      .home-split__image { max-width: 400px; aspect-ratio: 4/3; }
-      .home-split--reverse .home-split__image { order: -1; }
-      .home-testimonials__grid { grid-template-columns: 1fr; gap: 40px; }
       .home-stats__inner { flex-wrap: wrap; gap: 32px; }
       .home-stat { flex: 1 1 40%; border-right: none; padding: 0; }
-      .home-cta-mid__inner { grid-template-columns: 1fr; gap: 36px; }
+      .home-contact__inner { grid-template-columns: 1fr; gap: 36px; }
     }
     @media (max-width: 600px) {
-      .home-split__inner,
-      .home-testimonials__inner { padding: 0 24px; }
       .home-stats__inner { padding: 0 24px; }
-      .home-split { padding: 64px 0; }
-      .home-cta-mid__inner { padding: 0 24px; }
+      .home-contact__inner { padding: 0 24px; }
     }
   </style>
 </head>
@@ -282,12 +184,12 @@
 
   <main>
 
-    <!-- ① FLIP CARDS -->
+    <!-- FLIP CARDS -->
     <section class="landing" aria-label="Kies je pad">
       <div class="landing__inner">
         <div class="landing__cards" role="list">
 
-          <!-- Card: Trainer -->
+          <!-- Trainer -->
           <div class="card-container reveal" role="listitem" aria-label="Dion als Trainer" data-href="trainer.html">
             <div class="card-inner">
               <div class="card-front">
@@ -304,12 +206,11 @@
                   <span class="card-back__title">Agressie­management &amp; Gedrag</span>
                   <div class="card-back__rule"></div>
                   <ul class="card-back__list">
-                    <li>Agressiemanagement &amp; emotieregulatie-training</li>
+                    <li>Agressiemanagement &amp; emotieregulatie</li>
                     <li>Omgaan met moeilijke klanten</li>
-                    <li>Een veilige werkomgeving voor jou en je team</li>
+                    <li>Veilige werkomgeving voor jou en je team</li>
                     <li>300+ trainingen · 8+ jaar ervaring</li>
                     <li>Ook in te huren als acteur</li>
-                    <li>En nog veel meer...</li>
                   </ul>
                 </div>
                 <a class="card-back__cta" href="trainer.html">Bekijk meer</a>
@@ -317,7 +218,7 @@
             </div>
           </div>
 
-          <!-- Card: Coach -->
+          <!-- Coach -->
           <div class="card-container reveal" role="listitem" aria-label="Dion als Coach" data-href="coach.html" style="transition-delay: 0.1s;">
             <div class="card-inner">
               <div class="card-front">
@@ -336,10 +237,9 @@
                   <ul class="card-back__list">
                     <li>Strategische omzetverhoging</li>
                     <li>Je business <strong>LEAN</strong> maken</li>
-                    <li>Automatiseren, stroomlijnen &amp; simplificeren van het businessproces</li>
+                    <li>Automatiseren, stroomlijnen &amp; simplificeren</li>
                     <li>Beter managen van je team</li>
-                    <li>Meer omzet — want dat is ook zo belangrijk</li>
-                    <li>30+ high performers · 300+ sessies · rating 8.9/10</li>
+                    <li>30+ high performers · rating 8.9/10</li>
                   </ul>
                 </div>
                 <a class="card-back__cta" href="coach.html">Bekijk meer</a>
@@ -349,10 +249,9 @@
 
         </div>
       </div>
-
     </section>
 
-    <!-- ② STATS STRIP -->
+    <!-- STATS -->
     <div class="home-stats" aria-label="Kerngetallen">
       <div class="home-stats__inner">
         <div class="home-stat reveal">
@@ -374,114 +273,27 @@
       </div>
     </div>
 
-    <!-- CIALDINI MID CTA -->
-    <section class="home-cta-mid" aria-label="Direct aan de slag">
-      <div class="home-cta-mid__inner">
+    <!-- CONTACT CTA -->
+    <section class="home-contact" aria-label="Contact">
+      <div class="home-contact__inner">
 
-        <h2 class="home-cta-mid__title reveal">
-          Schakel Dion nu in<br>voor <span class="hl">jou</span> of<br><span class="hl">jouw organisatie</span>.
+        <h2 class="home-contact__title reveal">
+          Schakel Dion in voor<br><span class="hl">jou</span> of <span class="hl">jouw organisatie</span>.
         </h2>
 
-        <div class="home-cta-mid__body reveal">
-          <ul class="home-cta-mid__list">
+        <div class="home-contact__body reveal">
+          <ul class="home-contact__list">
             <li>Schakel Dion in als agressietrainer om <span class="ac">jouw organisatie te versterken</span>.</li>
             <li>Vraag coaching aan — <span class="ac">weinig plekken beschikbaar</span>.</li>
             <li><span class="ac">Online, offline of hybride</span> — jij kiest wat past.</li>
           </ul>
+          <div class="home-contact__urgency">
+            <span class="home-contact__dot"></span>
+            Beperkte beschikbaarheid in 2026
+          </div>
           <a class="btn btn--filled" href="contact.html">Plan een gesprek</a>
         </div>
 
-      </div>
-    </section>
-
-    <!-- ③ DION ALS TRAINER -->
-    <section class="home-split home-split--dark" aria-label="Dion als Trainer">
-      <div class="home-split__inner">
-        <div class="home-split__image reveal">
-          <img src="images/dion-trainer.png" alt="Dion Mensink als trainer">
-        </div>
-        <div class="home-split__text">
-          <span class="label reveal">Trainer</span>
-          <h2 class="reveal">Dion als<br>Trainer</h2>
-          <p class="reveal">Met meer dan acht jaar ervaring traint Dion professionals die dagelijks werken in situaties met agressief of grensoverschrijdend gedrag. Praktisch, direct en gericht op blijvende gedragsverandering.</p>
-          <ul class="home-split__list reveal">
-            <li>Agressiemanagement &amp; emotieregulatie-training</li>
-            <li>Omgaan met moeilijke klanten</li>
-            <li>Een veilige werkomgeving voor jou en je team</li>
-            <li>Getraind bij RDW, Efteling, Handhaving, JVH Casino's</li>
-            <li>Ook in te huren als acteur</li>
-          </ul>
-          <div class="divider reveal"></div>
-          <a class="btn reveal" href="trainer.html">Meer over training</a>
-        </div>
-      </div>
-    </section>
-
-    <!-- ④ DION ALS COACH -->
-    <section class="home-split" aria-label="Dion als Coach">
-      <div class="home-split__inner">
-        <div class="home-split__text">
-          <span class="label reveal">Coach</span>
-          <h2 class="reveal">Dion als<br>Coach</h2>
-          <p class="reveal">Dion coacht ondernemers en professionals die al goed presteren — maar weten dat er meer in zit. Exclusief offline, 1-op-1, en zonder compromis op diepgang.</p>
-          <ul class="home-split__list reveal">
-            <li>Strategische omzetverhoging</li>
-            <li>Je business meer lean maken</li>
-            <li>Automatiseren, stroomlijnen &amp; simplificeren</li>
-            <li>Beter managen van je team</li>
-            <li>Meer omzet — want dat is ook zo belangrijk</li>
-          </ul>
-          <div class="divider reveal"></div>
-          <a class="btn reveal" href="coach.html">Meer over coaching</a>
-        </div>
-        <div class="home-split__image home-split--reverse reveal">
-          <img src="images/dion-coach.png" alt="Dion Mensink als coach">
-        </div>
-      </div>
-    </section>
-
-    <!-- ⑤ TESTIMONIALS -->
-    <section class="home-testimonials" aria-label="Ervaringen">
-      <div class="home-testimonials__inner">
-        <div class="home-testimonials__header reveal">
-          <span class="label">Ervaringen</span>
-          <h2>Wat deelnemers zeggen</h2>
-        </div>
-        <div class="home-testimonials__grid">
-          <div class="home-testimonial reveal">
-            <span class="home-testimonial__mark">"</span>
-            <p class="home-testimonial__text">Dion legt de lat hoog, maar houdt je erbij. Geen soft coaching — hij confronteert je met wat je echt tegenhoudt. Precies wat ik nodig had.</p>
-            <div class="home-testimonial__author">
-              <span class="home-testimonial__name">Jeroen V.</span>
-              <span class="home-testimonial__role">Ondernemer, Coaching traject</span>
-            </div>
-          </div>
-          <div class="home-testimonial reveal reveal-delay-1">
-            <span class="home-testimonial__mark">"</span>
-            <p class="home-testimonial__text">De training was herkenbaar, praktisch en meteen toepasbaar. Onze medewerkers gingen anders de gang op — letterlijk.</p>
-            <div class="home-testimonial__author">
-              <span class="home-testimonial__name">Manon R.</span>
-              <span class="home-testimonial__role">HR-manager, Zorgsector</span>
-            </div>
-          </div>
-          <div class="home-testimonial reveal reveal-delay-2">
-            <span class="home-testimonial__mark">"</span>
-            <p class="home-testimonial__text">In 6 sessies meer beweging dan in 2 jaar zelf puzzelen. Dion ziet snel wat er echt speelt — en daar gaat hij ook naartoe.</p>
-            <div class="home-testimonial__author">
-              <span class="home-testimonial__name">Sanne K.</span>
-              <span class="home-testimonial__role">Salesmanager, Coaching traject</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ⑥ CTA -->
-    <section class="page-cta" aria-label="Contact">
-      <div class="page-cta__inner">
-        <span class="label reveal">Interesse?</span>
-        <h2 class="page-cta__title reveal">Bespreek wat Dion voor <span style="color:var(--orange);text-decoration:underline;text-decoration-color:rgba(26,122,74,0.35);text-underline-offset:4px;">jou</span> of <span style="color:var(--orange);text-decoration:underline;text-decoration-color:rgba(26,122,74,0.35);text-underline-offset:4px;">jouw organisatie</span> kan betekenen.</h2>
-        <a class="btn btn--filled reveal" href="contact.html">Neem contact op</a>
       </div>
     </section>
 
