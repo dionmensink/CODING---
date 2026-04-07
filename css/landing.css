@@ -170,7 +170,7 @@
 }
 
 .card-back__role {
-  font-size: 0.68rem;
+  font-size: 0.73rem;
   font-weight: 600;
   letter-spacing: 0.2em;
   text-transform: uppercase;
@@ -178,7 +178,7 @@
 }
 
 .card-back__title {
-  font-size: clamp(1.25rem, 2.2vw, 1.65rem);
+  font-size: clamp(1.35rem, 2.4vw, 1.78rem);
   font-weight: 700;
   letter-spacing: 0.01em;
   text-transform: uppercase;
@@ -203,7 +203,7 @@
   display: flex;
   align-items: flex-start;
   gap: 12px;
-  font-size: 1rem;
+  font-size: 1.08rem;
   font-weight: 400;
   color: rgba(245, 240, 232, 0.88);
   line-height: 1.4;
@@ -246,42 +246,21 @@
   opacity: 1;
 }
 
-/* Client logos */
+/* Client logos image */
 .card-back__clients {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
   margin-top: 4px;
 }
 
-.card-back__clients-label {
-  font-size: 0.62rem;
-  font-weight: 400;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: rgba(245, 240, 232, 0.28);
-}
-
-.card-back__logos {
-  display: flex;
-  align-items: center;
-  gap: 18px;
-  flex-wrap: wrap;
-}
-
-.card-back__logos img {
-  height: 26px;
-  width: auto;
-  max-width: 72px;
-  object-fit: contain;
-  filter: grayscale(1) contrast(3);
-  mix-blend-mode: screen;
-  opacity: 0.5;
+.card-back__gewerkt-met {
+  width: 100%;
+  height: auto;
   display: block;
+  mix-blend-mode: screen;
+  opacity: 0.55;
   transition: opacity 0.2s var(--ease-smooth);
 }
 
-.card-back__logos img:hover {
+.card-back__gewerkt-met:hover {
   opacity: 0.8;
 }
 
