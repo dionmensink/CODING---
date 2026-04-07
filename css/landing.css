@@ -274,16 +274,15 @@
   width: auto;
   max-width: 72px;
   object-fit: contain;
-  /* brightness(100) turns non-black pixels white; screen blend removes black bg */
-  filter: brightness(100);
+  filter: grayscale(1) contrast(3);
   mix-blend-mode: screen;
-  opacity: 0.45;
+  opacity: 0.5;
   display: block;
   transition: opacity 0.2s var(--ease-smooth);
 }
 
 .card-back__logos img:hover {
-  opacity: 0.75;
+  opacity: 0.8;
 }
 
 /* CTA */
