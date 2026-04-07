@@ -56,6 +56,7 @@
   aspect-ratio: 1 / 1;
   perspective: 1400px;
   cursor: pointer;
+  position: relative; /* anchor for canvas overlay */
 }
 
 .card-inner {
@@ -259,6 +260,33 @@
 .card-back__cta:hover { color: var(--orange); gap: 16px; }
 .card-back__cta::after { content: '→'; font-size: 1rem; }
 
+/* ----- Canvas drawing overlay ----- */
+.card-canvas {
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  pointer-events: none;
+  opacity: 1;
+  transition: opacity 0.65s ease;
+}
+.card-canvas.fading { opacity: 0; }
+
+/* ----- Smiley draw hint (inside card-front, top centre) ----- */
+.smiley-hint {
+  position: absolute;
+  top: 20px;
+  left: 0;
+  right: 0;
+  text-align: center;
+  font-size: 0.72rem;
+  font-weight: 300;
+  letter-spacing: 0.08em;
+  color: rgba(245, 240, 232, 0.55);
+  font-style: italic;
+  pointer-events: none;
+  z-index: 3;
+}
+
 
 /* =========================================================
    QUOTE REEL — rotating testimonials below cards
@@ -353,14 +381,26 @@
 
   .card-container {
     width: 100%;
-    max-width: 400px;
-    aspect-ratio: 4 / 5;
+    max-width: 420px;
+    height: 72vh;
+    aspect-ratio: unset;
+    touch-action: none; /* allow full gesture detection */
+  }
+
+  .card-inner {
+    transition: transform 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+
+  /* Disable hover flip on touch devices */
+  .card-container:hover .card-inner {
+    transform: none;
   }
 
   .landing {
     padding: 32px 24px 48px;
     justify-content: flex-start;
-    padding-top: 48px;
+    padding-top: 40px;
+    min-height: unset;
   }
 }
 
