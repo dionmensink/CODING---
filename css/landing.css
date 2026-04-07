@@ -364,13 +364,18 @@
     touch-action: pan-y; /* always allow vertical scroll */
   }
 
-  /* No hover flip on touch devices */
-  .card-container:hover .card-inner {
-    transform: none;
+  /* No flip at all on touch devices */
+  .card-container:hover .card-inner,
+  .card-container.flipped .card-inner {
+    transform: none !important;
+  }
+
+  .card-back {
+    display: none;
   }
 
   .card-front__image {
-    transform: none !important; /* no zoom on tap */
+    transform: none !important;
   }
 }
 
