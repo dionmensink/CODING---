@@ -1,29 +1,36 @@
 /**
- * main.js — Mensinc
+ * main.js
+ * - Mobile nav hamburger toggle
+ * - Touch-device card flip support
+ * - Subtle parallax on hero images
+ * - Active nav link highlighting
  */
 
 (function () {
   'use strict';
 
-  var isMobile  = window.matchMedia('(max-width: 768px)').matches;
-  var isTouch   = window.matchMedia('(hover: none)').matches;
-  var reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
   /* -------------------------------------------------------
      Mobile Navigation
   ------------------------------------------------------- */
   function initMobileNav() {
-    var hamburger  = document.querySelector('.site-nav__hamburger');
+    var hamburger = document.querySelector('.site-nav__hamburger');
     var mobileMenu = document.querySelector('.site-nav__mobile');
     if (!hamburger || !mobileMenu) return;
 
     hamburger.addEventListener('click', function () {
-      var open = mobileMenu.classList.contains('open');
-      mobileMenu.classList.toggle('open', !open);
-      hamburger.classList.toggle('open', !open);
-      hamburger.setAttribute('aria-expanded', String(!open));
+      var isOpen = mobileMenu.classList.contains('open');
+      if (isOpen) {
+        mobileMenu.classList.remove('open');
+        hamburger.classList.remove('open');
+        hamburger.setAttribute('aria-expanded', 'false');
+      } else {
+        mobileMenu.classList.add('open');
+        hamburger.classList.add('open');
+        hamburger.setAttribute('aria-expanded', 'true');
+      }
     });
 
+    // Close on outside click
     document.addEventListener('click', function (e) {
       if (!hamburger.contains(e.target) && !mobileMenu.contains(e.target)) {
         mobileMenu.classList.remove('open');
@@ -32,6 +39,7 @@
       }
     });
 
+    // Close on link click
     mobileMenu.querySelectorAll('a').forEach(function (link) {
       link.addEventListener('click', function () {
         mobileMenu.classList.remove('open');
@@ -41,63 +49,47 @@
   }
 
   /* -------------------------------------------------------
-     Tap-to-flip — touch devices
-     Distinguishes a tap (no/tiny movement) from a scroll.
-     Tap flips the card. Second tap unflips.
+     Touch / mobile card flip
+     On touch devices hover doesn't fire — tap toggles flip.
   ------------------------------------------------------- */
   function initCardFlip() {
-    if (!isTouch) return;
+    var isTouchDevice = window.matchMedia('(hover: none)').matches;
+    if (!isTouchDevice) return;
 
-    document.querySelectorAll('.card-container').forEach(function (card) {
-      var inner = card.querySelector('.card-inner');
-      if (!inner) return;
-
-      var startX = 0, startY = 0, moved = false;
-
-      card.addEventListener('touchstart', function (e) {
-        startX = e.touches[0].clientX;
-        startY = e.touches[0].clientY;
-        moved  = false;
-      }, { passive: true });
-
-      card.addEventListener('touchmove', function () {
-        moved = true; // user is scrolling — ignore on touchend
-      }, { passive: true });
-
-      card.addEventListener('touchend', function (e) {
-        // Ignore if finger moved (scroll gesture)
-        var dx = Math.abs(e.changedTouches[0].clientX - startX);
-        var dy = Math.abs(e.changedTouches[0].clientY - startY);
-        if (moved || dx > 10 || dy > 10) return;
-
-        // Ignore taps on the CTA link
-        if (e.target.closest('.card-back__cta')) return;
-
-        e.preventDefault(); // prevent ghost click
-
-        var flipped = card.classList.contains('flipped');
-        card.classList.toggle('flipped', !flipped);
-      }, { passive: false });
+    var cards = document.querySelectorAll('.card-container');
+    cards.forEach(function (card) {
+      card.addEventListener('click', function (e) {
+        var isFlipped = card.classList.contains('flipped');
+        if (!isFlipped) {
+          // First tap: flip to show back
+          card.classList.add('flipped');
+          e.preventDefault(); // prevent navigation on first tap
+        }
+        // Second tap (already flipped): let the link inside navigate naturally
+      });
     });
   }
 
   /* -------------------------------------------------------
-     Parallax — hero images only, desktop only
-     Skipped on mobile: causes layout thrash and jank.
+     Parallax — hero images scroll at reduced speed
+     Uses requestAnimationFrame + CSS custom property for
+     zero-layout-thrash performance.
   ------------------------------------------------------- */
   function initParallax() {
-    if (isMobile || reducedMotion) return;
-
     var heroImages = document.querySelectorAll('.page-hero__image.parallax');
     if (!heroImages.length) return;
 
+    // Respect reduced-motion preference
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
     var ticking = false;
 
-    function update() {
+    function updateParallax() {
+      var scrollY = window.scrollY;
       heroImages.forEach(function (img) {
         var section = img.closest('.page-hero');
         if (!section) return;
-        var rect   = section.getBoundingClientRect();
+        var rect = section.getBoundingClientRect();
         var offset = (rect.top + rect.height / 2) * 0.12;
         img.style.setProperty('--parallax-offset', offset + 'px');
       });
@@ -106,34 +98,46 @@
 
     window.addEventListener('scroll', function () {
       if (!ticking) {
-        requestAnimationFrame(update);
+        requestAnimationFrame(updateParallax);
         ticking = true;
       }
     }, { passive: true });
 
-    update();
+    updateParallax();
   }
 
   /* -------------------------------------------------------
-     Active nav link
+     Active nav link highlighting
+     Matches current page filename to nav hrefs.
   ------------------------------------------------------- */
   function initActiveNav() {
     var currentPage = window.location.pathname.split('/').pop() || 'index.html';
-    document.querySelectorAll('.site-nav__links a, .site-nav__mobile a').forEach(function (link) {
+    var links = document.querySelectorAll('.site-nav__links a, .site-nav__mobile a');
+
+    links.forEach(function (link) {
       var href = link.getAttribute('href');
-      if (href && href.split('/').pop() === currentPage) {
+      if (!href) return;
+      var linkPage = href.split('/').pop();
+      if (linkPage === currentPage) {
         link.classList.add('active');
       }
     });
   }
 
   /* -------------------------------------------------------
-     Count-up — proportional durations, ease-out quart
+     Smooth count-up animation for stat numbers.
+     Duration scales proportionally to target value so
+     large numbers (300) take longer than small ones (8).
+     Supports decimals via data-decimals attribute.
   ------------------------------------------------------- */
   function initCountUp() {
-    var stats = document.querySelectorAll('.stat__number[data-target], .home-stat__num[data-target]');
-    if (!stats.length || reducedMotion) return;
+    var stats = document.querySelectorAll(
+      '.stat__number[data-target], .home-stat__num[data-target]'
+    );
+    if (!stats.length) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
+    // Find the largest target to scale durations relative to it
     var maxTarget = 0;
     stats.forEach(function (el) {
       var t = parseFloat(el.getAttribute('data-target'));
@@ -148,37 +152,51 @@
         var el       = entry.target;
         var target   = parseFloat(el.getAttribute('data-target'));
         var suffix   = el.getAttribute('data-suffix') || '';
+        var prefix   = el.getAttribute('data-prefix') || '';
         var decimals = parseInt(el.getAttribute('data-decimals') || '0', 10);
-        var duration = 1200 + (target / maxTarget) * 3000;
-        var start    = null;
 
-        function step(ts) {
-          if (!start) start = ts;
-          var progress = Math.min((ts - start) / duration, 1);
-          var eased    = 1 - Math.pow(1 - progress, 4);
-          el.textContent = (eased * target).toFixed(decimals) + suffix;
-          if (progress < 1) requestAnimationFrame(step);
-          else el.textContent = target.toFixed(decimals) + suffix;
+        // 1200ms minimum, scales up to 4200ms for the largest number
+        var duration = 1200 + (target / maxTarget) * 3000;
+
+        var start = null;
+
+        function step(timestamp) {
+          if (!start) start = timestamp;
+          var progress = Math.min((timestamp - start) / duration, 1);
+          // Ease out quart — starts fast, decelerates smoothly at the end
+          var eased   = 1 - Math.pow(1 - progress, 4);
+          var current = eased * target;
+          el.textContent = prefix + current.toFixed(decimals) + suffix;
+          if (progress < 1) {
+            requestAnimationFrame(step);
+          } else {
+            el.textContent = prefix + target.toFixed(decimals) + suffix;
+          }
         }
 
         requestAnimationFrame(step);
       });
     }, { threshold: 0.5 });
 
-    stats.forEach(function (el) { observer.observe(el); });
+    stats.forEach(function (el) {
+      observer.observe(el);
+    });
   }
 
   /* -------------------------------------------------------
-     Reveal on scroll
+     Fade-in on scroll — lightweight reveal animations
   ------------------------------------------------------- */
   function initReveal() {
-    var els = document.querySelectorAll('.reveal');
-    if (!els.length) return;
-
-    if (reducedMotion) {
-      els.forEach(function (el) { el.classList.add('revealed'); });
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      // Show all immediately
+      document.querySelectorAll('.reveal').forEach(function (el) {
+        el.classList.add('revealed');
+      });
       return;
     }
+
+    var revealEls = document.querySelectorAll('.reveal');
+    if (!revealEls.length) return;
 
     var observer = new IntersectionObserver(function (entries) {
       entries.forEach(function (entry) {
@@ -187,60 +205,36 @@
           observer.unobserve(entry.target);
         }
       });
-    }, { threshold: 0.10, rootMargin: '0px 0px -32px 0px' });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
 
-    els.forEach(function (el) { observer.observe(el); });
+    revealEls.forEach(function (el) {
+      observer.observe(el);
+    });
   }
 
   /* -------------------------------------------------------
-     Card click navigation
+     Card navigation — clicking anywhere on a card navigates
+     to the page defined in data-href.
   ------------------------------------------------------- */
   function initCardNav() {
-    document.querySelectorAll('.card-container[data-href]').forEach(function (card) {
+    var cards = document.querySelectorAll('.card-container[data-href]');
+    cards.forEach(function (card) {
       card.addEventListener('click', function (e) {
+        // Don't intercept clicks on the explicit CTA link itself
         if (e.target.closest('.card-back__cta')) return;
-        // On touch: only navigate when back is visible
-        if (isTouch && !card.classList.contains('flipped')) return;
         var href = card.getAttribute('data-href');
         if (href) {
           document.body.classList.add('fade-out');
-          setTimeout(function () { window.location.href = href; }, 220);
+          setTimeout(function () {
+            window.location.href = href;
+          }, 220);
         }
       });
     });
   }
 
   /* -------------------------------------------------------
-     Scroll progress bar
-  ------------------------------------------------------- */
-  function initScrollProgress() {
-    var bar = document.createElement('div');
-    bar.className = 'scroll-progress';
-    document.body.appendChild(bar);
-
-    var ticking = false;
-    var maxScroll = 0;
-
-    function cacheMax() {
-      maxScroll = document.documentElement.scrollHeight - window.innerHeight;
-    }
-    cacheMax();
-    window.addEventListener('resize', cacheMax, { passive: true });
-
-    window.addEventListener('scroll', function () {
-      if (!ticking) {
-        requestAnimationFrame(function () {
-          var pct = maxScroll > 0 ? (window.scrollY / maxScroll) * 100 : 0;
-          bar.style.width = pct.toFixed(2) + '%';
-          ticking = false;
-        });
-        ticking = true;
-      }
-    }, { passive: true });
-  }
-
-  /* -------------------------------------------------------
-     Init
+     Init all
   ------------------------------------------------------- */
   document.addEventListener('DOMContentLoaded', function () {
     initMobileNav();
@@ -250,7 +244,6 @@
     initCountUp();
     initReveal();
     initCardNav();
-    initScrollProgress();
   });
 
 })();
