@@ -344,61 +344,70 @@
 
 /* ----- Mobile — sticky scroll-driven flip ----- */
 @media (max-width: 768px) {
-  /* Disable hover — JS/scroll drives everything */
-  .card-container:hover .card-inner    { transform: none; }
+  /* Kill hover — JS owns transforms */
+  .card-container:hover .card-inner        { transform: none; }
   .card-container:hover .card-front__image { transform: none; }
 
-  /* Tall section creates the scroll space */
+  /* 250vh = scroll travel space */
   .landing {
-    height: 350vh;
+    height: 250vh;
     min-height: unset;
     padding: 0;
     align-items: flex-start;
     justify-content: flex-start;
   }
 
-  /* Sticky viewport — stays pinned while user scrolls through 350vh */
+  /* Sticky frame: pinned in viewport while section scrolls */
   .landing__inner {
     position: sticky;
     top: var(--nav-height);
     height: calc(100vh - var(--nav-height));
     width: 100%;
     max-width: 100%;
-    overflow: hidden;
     padding: 0;
     display: block;
+    overflow: hidden;
+    contain: layout style;
   }
 
+  /* Flex column — card 1 on top half, card 2 on bottom half */
   .landing__cards {
-    position: relative;
+    display: flex;
+    flex-direction: column;
     width: 100%;
     height: 100%;
     gap: 0;
   }
 
-  /* Cards stacked on top of each other, full viewport */
+  /* Each card = exactly 50% of sticky frame */
   .card-container {
-    position: absolute;
-    inset: 0;
+    position: static;
+    flex: 0 0 50%;
     width: 100%;
-    height: 100%;
     max-width: none;
     aspect-ratio: unset;
-    perspective: 1000px;
-    /* JS drives opacity and z-index */
+    height: 50%;
+    perspective: 900px;
+    opacity: 1 !important;
+    will-change: auto;
   }
 
   /* JS drives transform — no CSS transition fighting */
   .card-container .card-inner {
     transition: none !important;
+    will-change: transform;
   }
 
-  .card-back { padding: 32px 28px; }
-  .card-back__list li { font-size: 0.92rem; }
-  .card-front__label { left: 24px; bottom: 24px; }
+  .card-back          { padding: 20px 20px 16px; }
+  .card-back__top     { gap: 12px; }
+  .card-back__list    { gap: 8px; }
+  .card-back__list li { font-size: 0.82rem; }
+  .card-back__cta     { margin-top: 8px; }
+  .card-front__label  { left: 18px; bottom: 18px; }
+  .card-front__name   { font-size: 1.4rem; }
 }
 
 @media (max-width: 480px) {
-  .card-back { padding: 28px 22px; }
-  .card-front__label { left: 20px; bottom: 20px; }
+  .card-back         { padding: 18px 16px 14px; }
+  .card-front__label { left: 14px; bottom: 14px; }
 }

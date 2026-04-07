@@ -9,6 +9,10 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
+  <!-- Preload hero card images so they're ready before first paint -->
+  <link rel="preload" as="image" href="images/dion-trainer.png">
+  <link rel="preload" as="image" href="images/dion-coach.png">
+
   <style>body { opacity: 0; }</style>
 
   <link rel="stylesheet" href="css/base.css">
@@ -150,6 +154,14 @@
     @media (max-width: 600px) {
       .home-stats__inner { padding: 0 24px; }
       .home-contact__inner { padding: 0 24px; }
+    }
+
+    /* Defer rendering of below-fold sections on mobile */
+    @media (max-width: 768px) {
+      .home-stats, .home-contact {
+        content-visibility: auto;
+        contain-intrinsic-size: 0 300px;
+      }
     }
   </style>
 </head>
