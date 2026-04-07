@@ -41,55 +41,74 @@
   }
 
   /* -------------------------------------------------------
-     Scroll-driven card flip — mobile only
-     Maps scroll position to rotateY so the flip feels
-     physically tied to the user's thumb movement.
+     Scroll-driven card flip — mobile sticky layout
+
+     Zones (as fraction of total scroll progress 0→1):
+       0.00 – 0.10  card 1 front
+       0.10 – 0.50  card 1 flips front → back
+       0.50 – 0.60  card 2 front
+       0.60 – 1.00  card 2 flips front → back
   ------------------------------------------------------- */
   function initMobileScrollFlip() {
     if (!isMobile) return;
 
-    var cards = document.querySelectorAll('.card-container');
-    if (!cards.length) return;
+    var landing = document.querySelector('.landing');
+    if (!landing) return;
+
+    var cards = Array.from(landing.querySelectorAll('.card-container'));
+    if (cards.length < 2) return;
+
+    var card1  = cards[0], card2  = cards[1];
+    var inner1 = card1.querySelector('.card-inner');
+    var inner2 = card2.querySelector('.card-inner');
+
+    // Set initial state: card1 visible, card2 hidden
+    card1.style.opacity = '1';  card1.style.zIndex = '2';
+    card2.style.opacity = '0';  card2.style.zIndex = '1';
+
+    function clamp(v, lo, hi) { return Math.max(lo, Math.min(hi, v)); }
+
+    // Map v from [inMin,inMax] → [0,1], clamped
+    function mapRange(v, inMin, inMax) {
+      return clamp((v - inMin) / (inMax - inMin), 0, 1);
+    }
+
+    // Ease in-out cubic — slow start, fast middle, slow end
+    function ease(t) {
+      return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+    }
 
     var ticking = false;
 
-    // Override CSS transition with a very short one so JS drives smoothly
-    cards.forEach(function (card) {
-      var inner = card.querySelector('.card-inner');
-      if (inner) inner.style.transition = 'transform 0.10s linear';
-    });
-
     function update() {
-      var vh  = window.innerHeight;
-      var mid = vh * 0.50;
+      var sectionTop    = landing.offsetTop;
+      var sectionHeight = landing.offsetHeight;
+      var maxScroll     = sectionHeight - window.innerHeight;
+      var p             = clamp((window.scrollY - sectionTop) / maxScroll, 0, 1);
 
-      cards.forEach(function (card) {
-        var inner = card.querySelector('.card-inner');
-        if (!inner) return;
+      // Rotation angles
+      var rot1 = ease(mapRange(p, 0.10, 0.50)) * 180;
+      var rot2 = ease(mapRange(p, 0.60, 1.00)) * 180;
 
-        var rect     = card.getBoundingClientRect();
-        var cardMid  = rect.top + rect.height * 0.5;
+      // Crossfade: card1 fades out, card2 fades in around p=0.50
+      var fade2 = clamp((p - 0.46) / 0.08, 0, 1);
+      var fade1 = 1 - fade2;
 
-        // d = 0 when card centre is at viewport centre, 1 at the edges
-        var d = Math.abs(cardMid - mid) / (vh * 0.52);
-        d = Math.min(d, 1);
+      card1.style.opacity = fade1;
+      card1.style.zIndex  = fade1 >= 0.5 ? '2' : '1';
+      card2.style.opacity = fade2;
+      card2.style.zIndex  = fade2 >  0.5 ? '2' : '1';
 
-        // Flip fully (180°) at centre, unflip towards edges
-        var rot = (1 - d) * 180;
-        inner.style.transform = 'rotateY(' + rot.toFixed(1) + 'deg)';
-      });
+      if (inner1) inner1.style.transform = 'rotateY(' + rot1.toFixed(1) + 'deg)';
+      if (inner2) inner2.style.transform = 'rotateY(' + rot2.toFixed(1) + 'deg)';
 
       ticking = false;
     }
 
     window.addEventListener('scroll', function () {
-      if (!ticking) {
-        requestAnimationFrame(update);
-        ticking = true;
-      }
+      if (!ticking) { requestAnimationFrame(update); ticking = true; }
     }, { passive: true });
 
-    // Run once on load so first card already shows back if visible
     requestAnimationFrame(update);
   }
 
@@ -229,11 +248,11 @@
       card.addEventListener('click', function (e) {
         if (e.target.closest('.card-back__cta')) return;
 
-        // On mobile, only navigate if card is already flipped (back visible)
+        // On mobile, only navigate when back is showing (rot > 90°)
         if (isMobile) {
           var inner = card.querySelector('.card-inner');
-          var currentRot = inner ? parseFloat(inner.style.transform.replace(/[^0-9.]/g, '') || '0') : 0;
-          if (currentRot < 90) return; // front facing — don't navigate yet
+          var m = inner && inner.style.transform.match(/rotateY\(([0-9.]+)deg\)/);
+          if (!m || parseFloat(m[1]) < 90) return;
         }
 
         var href = card.getAttribute('data-href');

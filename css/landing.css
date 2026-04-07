@@ -342,52 +342,63 @@
   .quote-reel__text { white-space: normal; font-size: 0.82rem; }
 }
 
-/* ----- Mobile — scroll-driven flip layout ----- */
+/* ----- Mobile — sticky scroll-driven flip ----- */
 @media (max-width: 768px) {
-  /* Disable hover effects — scroll drives everything */
-  .card-container:hover .card-inner { transform: none; }
+  /* Disable hover — JS/scroll drives everything */
+  .card-container:hover .card-inner    { transform: none; }
   .card-container:hover .card-front__image { transform: none; }
 
+  /* Tall section creates the scroll space */
   .landing {
-    min-height: auto;
+    height: 350vh;
+    min-height: unset;
     padding: 0;
     align-items: flex-start;
+    justify-content: flex-start;
   }
 
-  .landing__inner { padding: 0; }
+  /* Sticky viewport — stays pinned while user scrolls through 350vh */
+  .landing__inner {
+    position: sticky;
+    top: var(--nav-height);
+    height: calc(100vh - var(--nav-height));
+    width: 100%;
+    max-width: 100%;
+    overflow: hidden;
+    padding: 0;
+    display: block;
+  }
 
   .landing__cards {
-    flex-direction: column;
-    align-items: stretch;
-    gap: 0;
+    position: relative;
     width: 100%;
+    height: 100%;
+    gap: 0;
   }
 
-  /* Each card fills ~85% of the viewport so one card = one scroll step */
+  /* Cards stacked on top of each other, full viewport */
   .card-container {
+    position: absolute;
+    inset: 0;
     width: 100%;
+    height: 100%;
     max-width: none;
-    height: 85vh;
     aspect-ratio: unset;
     perspective: 1000px;
+    /* JS drives opacity and z-index */
   }
 
-  .card-back {
-    padding: 32px 28px;
+  /* JS drives transform — no CSS transition fighting */
+  .card-container .card-inner {
+    transition: none !important;
   }
 
-  .card-back__list li {
-    font-size: 0.92rem;
-  }
-
-  .card-front__label {
-    left: 24px;
-    bottom: 24px;
-  }
+  .card-back { padding: 32px 28px; }
+  .card-back__list li { font-size: 0.92rem; }
+  .card-front__label { left: 24px; bottom: 24px; }
 }
 
 @media (max-width: 480px) {
-  .card-container { height: 88vh; }
   .card-back { padding: 28px 22px; }
   .card-front__label { left: 20px; bottom: 20px; }
 }
