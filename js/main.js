@@ -48,27 +48,6 @@
     });
   }
 
-  /* -------------------------------------------------------
-     Touch / mobile card flip
-     On touch devices hover doesn't fire — tap toggles flip.
-  ------------------------------------------------------- */
-  function initCardFlip() {
-    var isTouchDevice = window.matchMedia('(hover: none)').matches;
-    if (!isTouchDevice) return;
-
-    var cards = document.querySelectorAll('.card-container');
-    cards.forEach(function (card) {
-      card.addEventListener('click', function (e) {
-        var isFlipped = card.classList.contains('flipped');
-        if (!isFlipped) {
-          // First tap: flip to show back
-          card.classList.add('flipped');
-          e.preventDefault(); // prevent navigation on first tap
-        }
-        // Second tap (already flipped): let the link inside navigate naturally
-      });
-    });
-  }
 
   /* -------------------------------------------------------
      Parallax — hero images scroll at reduced speed
@@ -238,7 +217,6 @@
   ------------------------------------------------------- */
   document.addEventListener('DOMContentLoaded', function () {
     initMobileNav();
-    initCardFlip();
     initParallax();
     initActiveNav();
     initCountUp();

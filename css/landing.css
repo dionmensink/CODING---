@@ -256,7 +256,7 @@
   will-change: color, gap;
 }
 
-.card-back__cta:hover { color: var(--orange); gap: 16px; }
+.card-back__cta:hover { color: var(--cream); gap: 16px; }
 .card-back__cta::after { content: '→'; font-size: 1rem; }
 
 
@@ -345,22 +345,32 @@
 
 /* ----- Responsive ----- */
 @media (max-width: 768px) {
+  .landing {
+    min-height: unset;
+    padding: 32px 20px 40px;
+    align-items: flex-start;
+  }
+
   .landing__cards {
     flex-direction: column;
     align-items: center;
-    gap: 24px;
+    gap: 20px;
   }
 
   .card-container {
     width: 100%;
-    max-width: 400px;
-    aspect-ratio: 4 / 5;
+    max-width: 440px;
+    aspect-ratio: 3 / 4;
+    touch-action: pan-y; /* always allow vertical scroll */
   }
 
-  .landing {
-    padding: 32px 24px 48px;
-    justify-content: flex-start;
-    padding-top: 48px;
+  /* No hover flip on touch devices */
+  .card-container:hover .card-inner {
+    transform: none;
+  }
+
+  .card-front__image {
+    transform: none !important; /* no zoom on tap */
   }
 }
 
