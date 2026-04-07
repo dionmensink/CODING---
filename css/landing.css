@@ -246,6 +246,44 @@
   opacity: 1;
 }
 
+/* Client logos */
+.card-back__clients {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.card-back__clients-label {
+  font-size: 0.62rem;
+  font-weight: 400;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(245, 240, 232, 0.28);
+}
+
+.card-back__logos {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  flex-wrap: wrap;
+}
+
+.card-back__logos img {
+  height: 20px;
+  width: auto;
+  max-width: 60px;
+  object-fit: contain;
+  filter: brightness(0) invert(1);
+  opacity: 0.35;
+  display: block;
+  transition: opacity 0.2s var(--ease-smooth);
+}
+
+.card-back__logos img:hover {
+  opacity: 0.65;
+}
+
 /* CTA */
 .card-back__cta {
   display: flex;
