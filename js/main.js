@@ -41,58 +41,64 @@
   }
 
   /* -------------------------------------------------------
-     Scroll-driven card flip — mobile sticky layout
+     Scroll-driven card flip — mobile
 
-     Both cards are always visible (top half / bottom half).
-     Scroll progress 0→1 over the 250vh landing section:
-       0.00 – 0.15  card 1 front (hold)
-       0.15 – 0.50  card 1 flips → back
-       0.50 – 0.65  card 2 front (hold)
-       0.65 – 1.00  card 2 flips → back
+     Each .card-container is 220vh tall with .card-inner
+     as position:sticky inside it. This gives each card
+     its own independent scroll zone.
+
+     Per card scroll progress 0→1:
+       0.00–0.20  front visible, nothing happens (user settles)
+       0.20–0.80  card flips smoothly front → back
+       0.80–1.00  back visible, user moves to next card
   ------------------------------------------------------- */
   function initMobileScrollFlip() {
     if (!isMobile) return;
 
-    var landing = document.querySelector('.landing');
-    if (!landing) return;
+    var cards  = Array.from(document.querySelectorAll('.card-container'));
+    if (!cards.length) return;
+    var inners = cards.map(function (c) { return c.querySelector('.card-inner'); });
 
-    var cards = Array.from(landing.querySelectorAll('.card-container'));
-    if (cards.length < 2) return;
-
-    var inner1 = cards[0].querySelector('.card-inner');
-    var inner2 = cards[1].querySelector('.card-inner');
-
-    // Cache layout — only re-read on resize, never in scroll hot-path
-    var sectionTop = 0, maxScroll = 0;
+    // Cache layout — read once, refresh on resize only
+    var layouts = [];
     function cacheLayout() {
-      sectionTop = landing.offsetTop;
-      maxScroll  = landing.offsetHeight - window.innerHeight;
+      var vh = window.innerHeight;
+      layouts = cards.map(function (card) {
+        var top       = card.getBoundingClientRect().top + window.scrollY;
+        var scrollZone = card.offsetHeight - vh;
+        return { top: top, scrollZone: scrollZone };
+      });
     }
     cacheLayout();
-    window.addEventListener('resize', cacheLayout, { passive: true });
+    window.addEventListener('resize', function () {
+      cacheLayout();
+      update();
+    }, { passive: true });
 
     function clamp(v, lo, hi) { return v < lo ? lo : v > hi ? hi : v; }
     function map01(v, a, b)   { return clamp((v - a) / (b - a), 0, 1); }
-    // Ease in-out cubic: slow start → fast middle → slow end
+    // Ease in-out cubic — naturally decelrates at full flip
     function ease(t) { return t < 0.5 ? 4*t*t*t : 1 - Math.pow(-2*t+2,3)/2; }
 
-    var ticking = false;
-    var prevRot1 = -1, prevRot2 = -1; // skip DOM write if unchanged
+    var prevRots = cards.map(function () { return -1; });
+    var ticking  = false;
 
     function update() {
-      var p    = clamp((window.scrollY - sectionTop) / maxScroll, 0, 1);
-      var rot1 = ease(map01(p, 0.15, 0.50)) * 180;
-      var rot2 = ease(map01(p, 0.65, 1.00)) * 180;
+      var sy = window.scrollY;
+      cards.forEach(function (card, i) {
+        var inner = inners[i];
+        if (!inner) return;
+        var lay = layouts[i];
+        if (!lay || lay.scrollZone <= 0) return;
 
-      if (Math.abs(rot1 - prevRot1) > 0.2) {
-        if (inner1) inner1.style.transform = 'rotateY(' + rot1.toFixed(1) + 'deg)';
-        prevRot1 = rot1;
-      }
-      if (Math.abs(rot2 - prevRot2) > 0.2) {
-        if (inner2) inner2.style.transform = 'rotateY(' + rot2.toFixed(1) + 'deg)';
-        prevRot2 = rot2;
-      }
+        var p   = clamp((sy - lay.top) / lay.scrollZone, 0, 1);
+        var rot = ease(map01(p, 0.20, 0.80)) * 180;
 
+        if (Math.abs(rot - prevRots[i]) > 0.3) {
+          inner.style.transform = 'rotateY(' + rot.toFixed(1) + 'deg)';
+          prevRots[i] = rot;
+        }
+      });
       ticking = false;
     }
 
@@ -256,6 +262,35 @@
   }
 
   /* -------------------------------------------------------
+     Scroll progress bar
+  ------------------------------------------------------- */
+  function initScrollProgress() {
+    var bar = document.createElement('div');
+    bar.className = 'scroll-progress';
+    document.body.appendChild(bar);
+
+    var ticking = false;
+    var maxScroll = 0;
+
+    function cacheMax() {
+      maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+    }
+    cacheMax();
+    window.addEventListener('resize', cacheMax, { passive: true });
+
+    window.addEventListener('scroll', function () {
+      if (!ticking) {
+        requestAnimationFrame(function () {
+          var pct = maxScroll > 0 ? (window.scrollY / maxScroll) * 100 : 0;
+          bar.style.width = pct.toFixed(2) + '%';
+          ticking = false;
+        });
+        ticking = true;
+      }
+    }, { passive: true });
+  }
+
+  /* -------------------------------------------------------
      Init
   ------------------------------------------------------- */
   document.addEventListener('DOMContentLoaded', function () {
@@ -267,6 +302,7 @@
     initCountUp();
     initReveal();
     initCardNav();
+    initScrollProgress();
   });
 
 })();

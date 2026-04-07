@@ -188,6 +188,20 @@
   height: var(--nav-height);
 }
 
+/* Scroll progress bar — white line under nav */
+.scroll-progress {
+  position: fixed;
+  top: var(--nav-height);
+  left: 0;
+  height: 2px;
+  width: 0%;
+  background: rgba(255, 255, 255, 0.9);
+  z-index: 101;
+  pointer-events: none;
+  transform-origin: left center;
+  will-change: width;
+}
+
 /* ----- Responsive ----- */
 @media (max-width: 768px) {
   .site-nav__links {

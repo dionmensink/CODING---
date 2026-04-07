@@ -342,72 +342,63 @@
   .quote-reel__text { white-space: normal; font-size: 0.82rem; }
 }
 
-/* ----- Mobile — sticky scroll-driven flip ----- */
+/* ----- Mobile — each card owns its scroll zone ----- */
 @media (max-width: 768px) {
-  /* Kill hover — JS owns transforms */
+  /* Kill CSS hover — JS drives transforms */
   .card-container:hover .card-inner        { transform: none; }
   .card-container:hover .card-front__image { transform: none; }
 
-  /* 250vh = scroll travel space */
   .landing {
-    height: 250vh;
+    height: auto;
     min-height: unset;
     padding: 0;
-    align-items: flex-start;
-    justify-content: flex-start;
   }
 
-  /* Sticky frame: pinned in viewport while section scrolls */
   .landing__inner {
-    position: sticky;
-    top: var(--nav-height);
-    height: calc(100vh - var(--nav-height));
-    width: 100%;
-    max-width: 100%;
     padding: 0;
-    display: block;
-    overflow: hidden;
-    contain: layout style;
+    max-width: 100%;
   }
 
-  /* Flex column — card 1 on top half, card 2 on bottom half */
   .landing__cards {
     display: flex;
     flex-direction: column;
-    width: 100%;
-    height: 100%;
     gap: 0;
+    width: 100%;
   }
 
-  /* Each card = exactly 50% of sticky frame */
+  /*
+    Key: each card-container is 220vh tall.
+    Its card-inner is position:sticky so it stays
+    pinned on screen while you scroll through 220vh.
+    Card 1 scrolls → flips. Then card 2 does the same.
+    Two completely independent scroll zones.
+  */
   .card-container {
-    position: static;
-    flex: 0 0 50%;
+    position: relative;
     width: 100%;
     max-width: none;
+    height: 220vh;
     aspect-ratio: unset;
-    height: 50%;
     perspective: 900px;
-    opacity: 1 !important;
-    will-change: auto;
   }
 
-  /* JS drives transform — no CSS transition fighting */
   .card-container .card-inner {
+    position: sticky;
+    top: var(--nav-height);
+    height: calc(100vh - var(--nav-height));
     transition: none !important;
     will-change: transform;
   }
 
-  .card-back          { padding: 20px 20px 16px; }
-  .card-back__top     { gap: 12px; }
-  .card-back__list    { gap: 8px; }
-  .card-back__list li { font-size: 0.82rem; }
-  .card-back__cta     { margin-top: 8px; }
-  .card-front__label  { left: 18px; bottom: 18px; }
-  .card-front__name   { font-size: 1.4rem; }
+  /* Compact back content so it fits in half-height */
+  .card-back          { padding: 24px 22px 20px; }
+  .card-back__top     { gap: 14px; }
+  .card-back__list    { gap: 9px; }
+  .card-back__list li { font-size: 0.85rem; }
+  .card-front__label  { left: 20px; bottom: 20px; }
 }
 
 @media (max-width: 480px) {
-  .card-back         { padding: 18px 16px 14px; }
-  .card-front__label { left: 14px; bottom: 14px; }
+  .card-container { height: 230vh; }
+  .card-back { padding: 20px 18px 16px; }
 }
