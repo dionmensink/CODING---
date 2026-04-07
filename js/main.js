@@ -49,151 +49,24 @@
   }
 
   /* -------------------------------------------------------
-     Draw-a-smiley card flip (mobile)
-     Draw a circle with your finger → card flips.
-     Tap the back face → unflips.
-     No ML, no libraries — pure canvas + geometry.
+     Touch / mobile card flip
+     On touch devices hover doesn't fire — tap toggles flip.
   ------------------------------------------------------- */
   function initCardFlip() {
     var isTouchDevice = window.matchMedia('(hover: none)').matches;
     if (!isTouchDevice) return;
 
-    var tealColor = (getComputedStyle(document.documentElement)
-      .getPropertyValue('--orange') || '#0d7d8c').trim();
-
-    var alreadyFlipped = sessionStorage.getItem('smiley-flipped');
-
-    document.querySelectorAll('.card-container').forEach(function (card) {
-
-      // Inject hint text at top of card-front (hidden after first flip)
-      if (!alreadyFlipped) {
-        var cardFront = card.querySelector('.card-front');
-        if (cardFront) {
-          var hint = document.createElement('div');
-          hint.className = 'smiley-hint';
-          hint.textContent = 'teken een smiley \u263a';
-          hint.setAttribute('aria-hidden', 'true');
-          cardFront.appendChild(hint);
-        }
-      }
-
-      // Canvas overlay — direct child of card-container (outside 3D transform)
-      var canvas = document.createElement('canvas');
-      canvas.className = 'card-canvas';
-      canvas.setAttribute('aria-hidden', 'true');
-      card.appendChild(canvas);
-      var ctx = canvas.getContext('2d');
-
-      function sizeCanvas() {
-        if (canvas.width  !== card.offsetWidth)  canvas.width  = card.offsetWidth;
-        if (canvas.height !== card.offsetHeight) canvas.height = card.offsetHeight;
-      }
-      sizeCanvas();
-      if (window.ResizeObserver) new ResizeObserver(sizeCanvas).observe(card);
-
-      // Drawing state
-      var path = [], segTotal = 0;
-      var ox, oy;
-      var live = false, isTap = false, decided = false, scrolling = false;
-
-      function wipe() { ctx.clearRect(0, 0, canvas.width, canvas.height); }
-
-      function pt(t) {
-        var r = card.getBoundingClientRect();
-        return { x: t.clientX - r.left, y: t.clientY - r.top };
-      }
-
-      /* Circle detection — 3 geometric checks */
-      function isCircle() {
-        if (path.length < 8 || segTotal < 80) return false;
-        // 1. Closed loop
-        var f = path[0], l = path[path.length - 1];
-        if (Math.hypot(l.x - f.x, l.y - f.y) / segTotal >= 0.35) return false;
-        // 2. Roundness (bounding-box aspect ratio)
-        var xs = path.map(function (p) { return p.x; });
-        var ys = path.map(function (p) { return p.y; });
-        var bw = Math.max.apply(null, xs) - Math.min.apply(null, xs);
-        var bh = Math.max.apply(null, ys) - Math.min.apply(null, ys);
-        if (bw < 30 || bh < 30) return false;
-        return Math.min(bw, bh) / Math.max(bw, bh) >= 0.45;
-      }
-
-      card.addEventListener('touchstart', function (e) {
-        var p = pt(e.touches[0]);
-        ox = p.x; oy = p.y;
-        path = [p]; segTotal = 0;
-        live = true; isTap = true; decided = false; scrolling = false;
-        canvas.classList.remove('fading');
-        wipe();
-        ctx.strokeStyle = tealColor;
-        ctx.lineWidth = 3; ctx.lineCap = 'round'; ctx.lineJoin = 'round';
-        ctx.globalAlpha = 0.55;
-        ctx.beginPath(); ctx.moveTo(p.x, p.y);
-      }, { passive: true });
-
-      card.addEventListener('touchmove', function (e) {
-        if (!live) return;
-        var p = pt(e.touches[0]);
-        var dx = p.x - ox, dy = p.y - oy, dist = Math.hypot(dx, dy);
-
-        // On first significant movement, decide: drawing or scrolling?
-        if (!decided && dist > 12) {
-          decided = true;
-          scrolling = Math.abs(dy) > Math.abs(dx) * 2;
-        }
-        if (scrolling)  { live = false; wipe(); return; } // let browser scroll
-        if (!decided)   return;
-
-        e.preventDefault(); // committed to drawing — block scroll
-        if (dist > 10)  isTap = false;
-
-        var prev = path[path.length - 1];
-        var seg  = Math.hypot(p.x - prev.x, p.y - prev.y);
-        if (seg < 2) return;
-        segTotal += seg; path.push(p);
-        ctx.lineTo(p.x, p.y); ctx.stroke();
-        ctx.beginPath(); ctx.moveTo(p.x, p.y);
-      }, { passive: false });
-
-      card.addEventListener('touchend', function () {
-        if (!live) return;
-        live = false;
-
-        if (isTap) {
-          wipe();
-          if (card.classList.contains('flipped')) card.classList.remove('flipped');
-          // Absorb the synthetic click so initCardNav won't navigate
-          var eat = function (ev) {
-            if (!ev.target.closest('.card-back__cta')) ev.preventDefault();
-            card.removeEventListener('click', eat, true);
-          };
-          card.addEventListener('click', eat, true);
-          return;
-        }
-
-        if (isCircle()) {
+    var cards = document.querySelectorAll('.card-container');
+    cards.forEach(function (card) {
+      card.addEventListener('click', function (e) {
+        var isFlipped = card.classList.contains('flipped');
+        if (!isFlipped) {
+          // First tap: flip to show back
           card.classList.add('flipped');
-          setTimeout(function () {
-            canvas.classList.add('fading');
-            setTimeout(function () { canvas.classList.remove('fading'); wipe(); }, 650);
-          }, 80);
-          // Hide hints after first successful smiley
-          if (!sessionStorage.getItem('smiley-flipped')) {
-            sessionStorage.setItem('smiley-flipped', '1');
-            document.querySelectorAll('.smiley-hint').forEach(function (h) {
-              h.style.transition = 'opacity 0.5s ease';
-              h.style.opacity = '0';
-              setTimeout(function () { h.style.display = 'none'; }, 500);
-            });
-          }
-        } else {
-          // Failed detection — fade trail out
-          canvas.classList.add('fading');
-          setTimeout(function () { canvas.classList.remove('fading'); wipe(); }, 650);
+          e.preventDefault(); // prevent navigation on first tap
         }
-        path = []; segTotal = 0;
-      }, { passive: true });
-
+        // Second tap (already flipped): let the link inside navigate naturally
+      });
     });
   }
 
