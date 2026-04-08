@@ -115,8 +115,176 @@
   mix-blend-mode: multiply;
 }
 
+/* =========================================================
+   FOOTER CONTACT SECTION
+   ========================================================= */
+.footer-contact {
+  position: relative;
+  overflow: hidden;
+  background: var(--ink);
+  padding: 96px 0 88px;
+}
+
+/* Amsterdam skyline as subtle background texture */
+.footer-contact::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url('../images/amsterdam-skyline.jpg');
+  background-size: cover;
+  background-position: center 65%;
+  filter: grayscale(100%) contrast(0.7);
+  opacity: 0.09;
+  pointer-events: none;
+}
+
+.footer-contact__inner {
+  position: relative;
+  z-index: 1;
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 40px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: start;
+}
+
+/* Left: copy */
+.footer-contact__left {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding-top: 8px;
+}
+
+.footer-contact__label {
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--orange);
+}
+
+.footer-contact__title {
+  font-size: clamp(2rem, 3.5vw, 3rem);
+  font-weight: 700;
+  color: var(--cream);
+  line-height: 1.1;
+  letter-spacing: 0.01em;
+  margin: 0;
+}
+
+.footer-contact__sub {
+  font-size: 0.95rem;
+  font-weight: 300;
+  color: rgba(245, 240, 232, 0.55);
+  line-height: 1.65;
+  max-width: 30ch;
+}
+
+.footer-contact__proof {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.8rem;
+  font-weight: 400;
+  color: rgba(245, 240, 232, 0.35);
+  letter-spacing: 0.04em;
+  margin-top: 8px;
+}
+
+.footer-contact__proof::before {
+  content: '';
+  display: inline-block;
+  width: 28px;
+  height: 1px;
+  background: var(--orange);
+  opacity: 0.5;
+  flex-shrink: 0;
+}
+
+/* Right: form */
+.footer-contact__form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.footer-contact__form input,
+.footer-contact__form textarea {
+  width: 100%;
+  background: rgba(245, 240, 232, 0.06);
+  border: 1px solid rgba(245, 240, 232, 0.14);
+  border-radius: 0;
+  color: var(--cream);
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  font-weight: 300;
+  padding: 14px 16px;
+  outline: none;
+  transition: border-color 0.2s var(--ease-smooth), background 0.2s var(--ease-smooth);
+  box-sizing: border-box;
+}
+
+.footer-contact__form input::placeholder,
+.footer-contact__form textarea::placeholder {
+  color: rgba(245, 240, 232, 0.3);
+}
+
+.footer-contact__form input:focus,
+.footer-contact__form textarea:focus {
+  border-color: var(--orange);
+  background: rgba(245, 240, 232, 0.1);
+}
+
+.footer-contact__form textarea {
+  resize: vertical;
+  min-height: 110px;
+}
+
+.footer-contact__form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+.footer-contact__form-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-top: 4px;
+}
+
+.footer-contact__scarcity {
+  font-size: 0.72rem;
+  font-weight: 300;
+  color: rgba(245, 240, 232, 0.28);
+  letter-spacing: 0.06em;
+}
+
 /* ---- Responsive ---- */
 @media (max-width: 768px) {
+  .footer-contact {
+    padding: 64px 0 56px;
+  }
+
+  .footer-contact__inner {
+    grid-template-columns: 1fr;
+    gap: 40px;
+    padding: 0 24px;
+  }
+
+  .footer-contact__form-row {
+    grid-template-columns: 1fr;
+  }
+
+  .footer-contact__form-footer {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
   .footer-nav-bar {
     flex-wrap: wrap;
     gap: 12px;

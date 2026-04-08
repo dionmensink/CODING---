@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="nl">
 <head>
   <meta charset="UTF-8">
@@ -401,7 +401,28 @@
 
   <!-- FOOTER -->
   <footer class="site-footer" role="contentinfo">
-    <div class="footer-nav-bar">
+  <!-- FOOTER CONTACT -->
+  <div class="footer-contact">
+    <div class="footer-contact__inner">
+      <div class="footer-contact__left">
+        <span class="footer-contact__label">Samenwerken?</span>
+        <h2 class="footer-contact__title">Plan een gesprek.</h2>
+        <p class="footer-contact__sub">Direct contact met Dion.<br>Geen tussenpersonen, geen wachttijden.</p>
+        <p class="footer-contact__proof">300+ professionals gingen je voor.</p>
+      </div>
+      <form class="footer-contact__form" action="contact.html">
+        <div class="footer-contact__form-row">
+          <input type="text" name="naam" placeholder="Naam" required>
+          <input type="email" name="email" placeholder="E-mail" required>
+        </div>
+        <textarea name="bericht" placeholder="Bericht" required></textarea>
+        <div class="footer-contact__form-footer">
+          <button type="submit" class="btn btn--filled">Verstuur →</button>
+          <span class="footer-contact__scarcity">Beperkt beschikbaar.</span>
+        </div>
+      </form>
+    </div>
+  </div>    <div class="footer-nav-bar">
       <a href="index.html" aria-label="Mensinc — startpagina">
         <img src="images/Logo_Mensic.png" alt="Mensinc" class="footer-logo-img">
       </a>
