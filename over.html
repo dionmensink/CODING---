@@ -14,6 +14,7 @@
   <link rel="stylesheet" href="css/base.css">
   <link rel="stylesheet" href="css/nav.css">
   <link rel="stylesheet" href="css/footer.css">
+  <link rel="stylesheet" href="css/landing.css">
   <link rel="stylesheet" href="css/pages.css">
 
   <style>
@@ -130,60 +131,47 @@
     }
 
     /* Two-role grid */
-    .over-roles {
+    /* Wide flip cards — landscape format */
+    .over-cards {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 2px;
+      gap: 24px;
     }
-    .over-role {
-      background: var(--cream-dark);
-      border: 1px solid var(--ink-faint);
-      padding: 40px 32px;
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
+    .over-cards .card-container {
+      max-width: none;
+      aspect-ratio: 16 / 7;
+      flex: none;
+      width: 100%;
     }
-    .over-role__tag {
-      font-size: 0.7rem;
-      font-weight: 600;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--ink-light);
+    /* On this page: no hover zoom on front image */
+    .over-cards .card-container:hover .card-front__image {
+      transform: scale(1.02);
     }
-    .over-role__title {
-      font-size: 1.3rem;
-      font-weight: 700;
-      color: var(--ink);
-      letter-spacing: 0.02em;
+    /* Card back horizontal layout for wide cards */
+    .over-cards .card-back {
+      padding: 32px 36px;
+      display: grid;
+      grid-template-columns: auto 1fr;
+      grid-template-rows: auto auto 1fr auto;
+      column-gap: 0;
+      row-gap: 14px;
+      align-content: start;
     }
-    .over-role__body {
-      font-size: 0.9rem;
-      color: var(--ink-mid);
-      line-height: 1.7;
+    .over-cards .card-back__top {
+      grid-column: 1 / -1;
     }
-    .over-role__link {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 0.78rem;
-      font-weight: 600;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--ink-mid);
-      text-decoration: none;
-      margin-top: auto;
-      transition: color 0.2s var(--ease-smooth), gap 0.2s var(--ease-smooth);
+    .over-cards .card-back__cta {
+      grid-column: 1 / -1;
     }
-    .over-role__link:hover { color: var(--orange); gap: 14px; }
-    .over-role__link::after { content: '→'; }
 
     @media (max-width: 768px) {
       .timeline__track::before { left: 68px; }
       .timeline__item { grid-template-columns: 68px 24px 1fr; }
       .timeline__inner { padding: 0 24px; }
     }
-    @media (max-width: 600px) {
-      .over-roles { grid-template-columns: 1fr; }
+    @media (max-width: 768px) {
+      .over-cards { grid-template-columns: 1fr; }
+      .over-cards .card-container { aspect-ratio: 3 / 2; }
     }
   </style>
 </head>
@@ -367,23 +355,66 @@
       </div>
     </section>
 
-    <!-- TWO ROLES -->
+    <!-- TWO ROLES — flip cards -->
     <section class="section--tight" aria-label="Twee rollen">
       <div class="container">
         <span class="label reveal" style="margin-bottom: 32px; display: block;">Wat Dion doet</span>
-        <div class="over-roles">
-          <div class="over-role reveal">
-            <span class="over-role__tag">Rol 01</span>
-            <h3 class="over-role__title">Dion als Trainer</h3>
-            <p class="over-role__body">Agressiemanagement, gedragsverandering en incompany trainingen voor organisaties in zorg, overheid en onderwijs. Offline, online en mix.</p>
-            <a class="over-role__link" href="trainer.html">Meer over training</a>
-          </div>
-          <div class="over-role reveal reveal-delay-1">
-            <span class="over-role__tag">Rol 02</span>
-            <h3 class="over-role__title">Dion als Coach</h3>
-            <p class="over-role__body">1-op-1 coaching van high performers en ondernemers op omzetverhoging, focus en leiderschap. Altijd offline, altijd persoonlijk.</p>
-            <a class="over-role__link" href="coach.html">Meer over coaching</a>
-          </div>
+        <div class="over-cards landing__cards">
+
+          <!-- Trainer -->
+          <a class="card-container reveal" href="trainer.html" aria-label="Dion als Trainer">
+            <div class="card-inner">
+              <div class="card-front">
+                <img class="card-front__image" src="images/dion-trainer.png" alt="Dion als Trainer" loading="lazy">
+                <div class="card-front__overlay"></div>
+                <div class="card-front__label">
+                  <span class="card-front__role">Rol 01</span>
+                  <span class="card-front__name">Trainer</span>
+                </div>
+              </div>
+              <div class="card-back">
+                <div class="card-back__top">
+                  <span class="card-back__role">Dion als Trainer</span>
+                  <span class="card-back__title">Emotie- &amp; Agressie-Meesterschap</span>
+                  <div class="card-back__rule"></div>
+                  <ul class="card-back__list">
+                    <li>Herkennen, de-escaleren, handelen</li>
+                    <li>Incompany · online · hybride</li>
+                    <li>RDW · Efteling · JVH Casino's</li>
+                  </ul>
+                </div>
+                <span class="card-back__cta">Meer over training</span>
+              </div>
+            </div>
+          </a>
+
+          <!-- Coach -->
+          <a class="card-container reveal reveal-delay-1" href="coach.html" aria-label="Dion als Coach">
+            <div class="card-inner">
+              <div class="card-front">
+                <img class="card-front__image" src="images/dion-coach.png" alt="Dion als Coach" loading="lazy">
+                <div class="card-front__overlay"></div>
+                <div class="card-front__label">
+                  <span class="card-front__role">Rol 02</span>
+                  <span class="card-front__name">Coach</span>
+                </div>
+              </div>
+              <div class="card-back">
+                <div class="card-back__top">
+                  <span class="card-back__role">Dion als Coach</span>
+                  <span class="card-back__title">Prestatie Meesterschap</span>
+                  <div class="card-back__rule"></div>
+                  <ul class="card-back__list">
+                    <li>Omzetverhoging &amp; business lean</li>
+                    <li>1-op-1 · exclusief offline</li>
+                    <li>30+ high performers · 8.9/10</li>
+                  </ul>
+                </div>
+                <span class="card-back__cta">Meer over coaching</span>
+              </div>
+            </div>
+          </a>
+
         </div>
       </div>
     </section>
