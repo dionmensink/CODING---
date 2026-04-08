@@ -1,5 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400&display=swap');
-
 /* =========================================================
    FOOTER.CSS
    ========================================================= */
@@ -9,33 +7,77 @@
 }
 
 /* =========================================================
-   CONTACT SECTION
+   FOOTER CONTACT — the entire footer
    ========================================================= */
 .footer-contact {
   position: relative;
   overflow: hidden;
-  padding: 96px 0 80px;
+  background: var(--ink);
 }
 
-/* Subtle skyline texture behind the form */
+/* Amsterdam skyline pinned to the bottom */
+.footer-contact__skyline {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  display: block;
+  filter: grayscale(100%) contrast(1.1) brightness(0.4);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Dark gradient so skyline fades into ink above */
 .footer-contact::before {
   content: '';
   position: absolute;
   inset: 0;
-  background-image: url('../images/amsterdam-skyline.jpg');
-  background-size: cover;
-  background-position: center 60%;
-  filter: grayscale(100%) contrast(0.8);
-  opacity: 0.07;
+  background: linear-gradient(to bottom, var(--ink) 30%, rgba(26,20,9,0.7) 100%);
+  z-index: 1;
   pointer-events: none;
 }
 
-.footer-contact__inner {
+/* Everything above the image */
+.footer-contact__nav,
+.footer-contact__inner,
+.footer-contact__copy {
   position: relative;
-  z-index: 1;
+  z-index: 2;
+}
+
+/* ---- Nav links row (above form) ---- */
+.footer-contact__nav {
   max-width: var(--max-width);
   margin: 0 auto;
-  padding: 0 40px;
+  padding: 52px 40px 48px;
+  display: flex;
+  gap: 36px;
+  align-items: center;
+  flex-wrap: wrap;
+  border-bottom: 1px solid rgba(245, 240, 232, 0.08);
+}
+
+.footer-contact__nav a {
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(245, 240, 232, 0.55);
+  text-decoration: none;
+  transition: color 0.2s var(--ease-smooth);
+  white-space: nowrap;
+}
+
+.footer-contact__nav a:hover {
+  color: var(--cream);
+}
+
+/* ---- Form grid ---- */
+.footer-contact__inner {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 64px 40px 80px;
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 80px;
@@ -81,7 +123,7 @@
   gap: 10px;
   font-size: 0.8rem;
   font-weight: 400;
-  color: rgba(245, 240, 232, 0.3);
+  color: rgba(245, 240, 232, 0.28);
   letter-spacing: 0.04em;
 }
 
@@ -156,75 +198,28 @@
   letter-spacing: 0.06em;
 }
 
-/* =========================================================
-   SKYLINE BAR — Amsterdam skyline + white nav links
-   ========================================================= */
-.footer-skyline-bar {
-  position: relative;
-  overflow: hidden;
-  line-height: 0;
-}
-
-.footer-skyline-bar img {
-  width: 100%;
-  display: block;
-  filter: grayscale(100%) contrast(1.1) brightness(0.4);
-}
-
-.footer-nav-overlay {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  align-items: flex-end;
-  padding: 0 40px 24px;
-  justify-content: space-between;
-  background: linear-gradient(
-    to top,
-    rgba(26, 20, 9, 0.85) 0%,
-    rgba(26, 20, 9, 0.2) 55%,
-    transparent 100%
-  );
-}
-
-.footer-nav-overlay .footer-links {
-  display: flex;
-  gap: 28px;
-  flex-wrap: wrap;
-}
-
-.footer-nav-overlay .footer-links a {
-  font-size: 0.78rem;
-  font-weight: 500;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: rgba(245, 240, 232, 0.6);
-  text-decoration: none;
-  transition: color 0.2s var(--ease-smooth);
-  white-space: nowrap;
-}
-
-.footer-nav-overlay .footer-links a:hover {
-  color: var(--cream);
-}
-
-.footer-nav-overlay .footer-copy {
+/* Copyright */
+.footer-contact__copy {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 40px 32px;
   font-size: 0.62rem;
   font-weight: 300;
-  color: rgba(245, 240, 232, 0.3);
-  letter-spacing: 0.03em;
-  white-space: nowrap;
+  color: rgba(245, 240, 232, 0.2);
+  letter-spacing: 0.04em;
 }
 
 /* ---- Responsive ---- */
 @media (max-width: 768px) {
-  .footer-contact {
-    padding: 64px 0 56px;
+  .footer-contact__nav {
+    padding: 40px 24px 32px;
+    gap: 20px;
   }
 
   .footer-contact__inner {
     grid-template-columns: 1fr;
     gap: 40px;
-    padding: 0 24px;
+    padding: 48px 24px 64px;
   }
 
   .footer-contact__form-row {
@@ -236,14 +231,7 @@
     align-items: flex-start;
   }
 
-  .footer-nav-overlay {
-    padding: 0 24px 20px;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 12px;
-  }
-
-  .footer-nav-overlay .footer-links {
-    gap: 16px;
+  .footer-contact__copy {
+    padding: 0 24px 28px;
   }
 }
