@@ -5,136 +5,28 @@
    ========================================================= */
 
 .site-footer {
-  background: var(--cream);
-  border-top: 1px solid var(--ink-faint);
-  overflow: hidden;
-}
-
-/* ---- Nav bar: logo + links + copyright ---- */
-.footer-nav-bar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 10px 40px 6px;
-  gap: 24px;
-}
-
-.footer-logo-img {
-  height: 20px;
-  width: auto;
-  filter: grayscale(1) contrast(0.9) brightness(1.2);
-  mix-blend-mode: multiply;
-  opacity: 0.45;
-  transition: opacity 0.2s var(--ease-smooth);
-  flex-shrink: 0;
-}
-
-.footer-logo-img:hover {
-  opacity: 0.8;
-}
-
-.footer-links {
-  display: flex;
-  gap: 28px;
-  flex-wrap: wrap;
-}
-
-.footer-links a {
-  font-size: 0.82rem;
-  font-weight: 500;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--ink-mid);
-  text-decoration: none;
-  position: relative;
-  transition: color 0.2s var(--ease-smooth);
-  white-space: nowrap;
-}
-
-.footer-links a::after {
-  content: '';
-  position: absolute;
-  bottom: -3px;
-  left: 0;
-  right: 0;
-  height: 1.5px;
-  background: var(--orange);
-  transform: scaleX(0);
-  transform-origin: left center;
-  transition: transform 0.25s var(--ease-smooth);
-  will-change: transform;
-}
-
-.footer-links a:hover {
-  color: var(--orange);
-}
-
-.footer-links a:hover::after {
-  transform: scaleX(1);
-}
-
-.footer-copy {
-  font-size: 0.62rem;
-  font-weight: 300;
-  color: var(--ink-light);
-  letter-spacing: 0.03em;
-  white-space: nowrap;
-  flex-shrink: 0;
-}
-
-/* ---- Skyline: 80% wide, proportional height, no crop ---- */
-.footer-skyline {
-  position: relative;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  line-height: 0;
-}
-
-/* Four-sided fade: left, right, top, bottom all dissolve into cream */
-.footer-skyline::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background:
-    linear-gradient(to right,  var(--cream) 0%, transparent 22%),
-    linear-gradient(to left,   var(--cream) 0%, transparent 22%),
-    linear-gradient(to bottom, var(--cream) 0%, transparent 40%),
-    linear-gradient(to top,    var(--cream) 0%, transparent 25%);
-  pointer-events: none;
-  z-index: 1;
-}
-
-.footer-skyline img {
-  width: 80%;
-  height: auto;
-  display: block;
-  /* brightness(1.08) lifts the image slightly so multiply blends the
-     warm-white background into cream without a visible edge */
-  filter: grayscale(100%) contrast(1.0) brightness(1.08);
-  mix-blend-mode: multiply;
+  background: var(--ink);
 }
 
 /* =========================================================
-   FOOTER CONTACT SECTION
+   CONTACT SECTION
    ========================================================= */
 .footer-contact {
   position: relative;
   overflow: hidden;
-  background: var(--ink);
-  padding: 96px 0 88px;
+  padding: 96px 0 80px;
 }
 
-/* Amsterdam skyline as subtle background texture */
+/* Subtle skyline texture behind the form */
 .footer-contact::before {
   content: '';
   position: absolute;
   inset: 0;
   background-image: url('../images/amsterdam-skyline.jpg');
   background-size: cover;
-  background-position: center 65%;
-  filter: grayscale(100%) contrast(0.7);
-  opacity: 0.09;
+  background-position: center 60%;
+  filter: grayscale(100%) contrast(0.8);
+  opacity: 0.07;
   pointer-events: none;
 }
 
@@ -178,7 +70,7 @@
 .footer-contact__sub {
   font-size: 0.95rem;
   font-weight: 300;
-  color: rgba(245, 240, 232, 0.55);
+  color: rgba(245, 240, 232, 0.5);
   line-height: 1.65;
   max-width: 30ch;
 }
@@ -189,9 +81,8 @@
   gap: 10px;
   font-size: 0.8rem;
   font-weight: 400;
-  color: rgba(245, 240, 232, 0.35);
+  color: rgba(245, 240, 232, 0.3);
   letter-spacing: 0.04em;
-  margin-top: 8px;
 }
 
 .footer-contact__proof::before {
@@ -200,7 +91,7 @@
   width: 28px;
   height: 1px;
   background: var(--orange);
-  opacity: 0.5;
+  opacity: 0.6;
   flex-shrink: 0;
 }
 
@@ -216,7 +107,6 @@
   width: 100%;
   background: rgba(245, 240, 232, 0.06);
   border: 1px solid rgba(245, 240, 232, 0.14);
-  border-radius: 0;
   color: var(--cream);
   font-family: var(--font-body);
   font-size: 0.9rem;
@@ -225,11 +115,13 @@
   outline: none;
   transition: border-color 0.2s var(--ease-smooth), background 0.2s var(--ease-smooth);
   box-sizing: border-box;
+  border-radius: 0;
+  -webkit-appearance: none;
 }
 
 .footer-contact__form input::placeholder,
 .footer-contact__form textarea::placeholder {
-  color: rgba(245, 240, 232, 0.3);
+  color: rgba(245, 240, 232, 0.28);
 }
 
 .footer-contact__form input:focus,
@@ -254,14 +146,73 @@
   align-items: center;
   justify-content: space-between;
   gap: 16px;
-  margin-top: 4px;
+  flex-wrap: wrap;
 }
 
 .footer-contact__scarcity {
   font-size: 0.72rem;
   font-weight: 300;
-  color: rgba(245, 240, 232, 0.28);
+  color: rgba(245, 240, 232, 0.25);
   letter-spacing: 0.06em;
+}
+
+/* =========================================================
+   SKYLINE BAR — Amsterdam skyline + white nav links
+   ========================================================= */
+.footer-skyline-bar {
+  position: relative;
+  overflow: hidden;
+  line-height: 0;
+}
+
+.footer-skyline-bar img {
+  width: 100%;
+  display: block;
+  filter: grayscale(100%) contrast(1.1) brightness(0.4);
+}
+
+.footer-nav-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: flex-end;
+  padding: 0 40px 24px;
+  justify-content: space-between;
+  background: linear-gradient(
+    to top,
+    rgba(26, 20, 9, 0.85) 0%,
+    rgba(26, 20, 9, 0.2) 55%,
+    transparent 100%
+  );
+}
+
+.footer-nav-overlay .footer-links {
+  display: flex;
+  gap: 28px;
+  flex-wrap: wrap;
+}
+
+.footer-nav-overlay .footer-links a {
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(245, 240, 232, 0.6);
+  text-decoration: none;
+  transition: color 0.2s var(--ease-smooth);
+  white-space: nowrap;
+}
+
+.footer-nav-overlay .footer-links a:hover {
+  color: var(--cream);
+}
+
+.footer-nav-overlay .footer-copy {
+  font-size: 0.62rem;
+  font-weight: 300;
+  color: rgba(245, 240, 232, 0.3);
+  letter-spacing: 0.03em;
+  white-space: nowrap;
 }
 
 /* ---- Responsive ---- */
@@ -285,13 +236,14 @@
     align-items: flex-start;
   }
 
-  .footer-nav-bar {
-    flex-wrap: wrap;
+  .footer-nav-overlay {
+    padding: 0 24px 20px;
+    flex-direction: column;
+    align-items: flex-start;
     gap: 12px;
-    padding: 14px 24px;
   }
 
-  .footer-copy {
-    width: 100%;
+  .footer-nav-overlay .footer-links {
+    gap: 16px;
   }
 }
