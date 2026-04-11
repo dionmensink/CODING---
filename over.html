@@ -147,6 +147,22 @@
     .over-cards .card-container:hover .card-front__image {
       transform: scale(1.02);
     }
+
+    /* Slightly smaller text on back so long bullets fit the wide-short card */
+    .over-cards .card-back__title {
+      font-size: clamp(0.95rem, 1.5vw, 1.2rem);
+    }
+    .over-cards .card-back__list li {
+      font-size: 0.88rem;
+      line-height: 1.35;
+    }
+    .over-cards .card-back {
+      padding: 28px 32px;
+      gap: 14px;
+    }
+    .over-cards .card-back__top {
+      gap: 14px;
+    }
     /* Card back horizontal layout for wide cards */
     .over-cards .card-back {
       padding: 32px 36px;
