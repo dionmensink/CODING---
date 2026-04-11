@@ -130,8 +130,15 @@
     }
     @media (max-width: 600px) {
       .cases-flip-grid { grid-template-columns: 1fr; }
-      .case-flip { aspect-ratio: 4 / 3; }
+      .case-flip {
+        aspect-ratio: unset;
+        min-height: 500px;
+      }
       .case-flip:hover .case-flip__inner { transform: none; }
+      /* Smooth spring flip for mobile */
+      .case-flip .case-flip__inner {
+        transition: transform 0.95s cubic-bezier(0.34, 1.04, 0.64, 1);
+      }
     }
 
     /* Quote / testimonial block */
@@ -426,19 +433,39 @@
   <script src="js/main.js"></script>
   <script>
     (function () {
-      // Touch: tap to flip case cards
       var isTouchDevice = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
+      if (!isTouchDevice) return;
 
-      if (isTouchDevice) {
-        // Update hint text for touch
-        document.querySelectorAll('.case-flip__hint').forEach(function (el) {
-          el.textContent = 'Tik om te ontdekken';
+      var cards = document.querySelectorAll('.case-flip');
+
+      // Update hint: front shows "Tik om terug te draaien" (visible after user taps to see details)
+      cards.forEach(function (card) {
+        var hint = card.querySelector('.case-flip__hint');
+        if (hint) hint.textContent = 'Tik om terug te draaien';
+      });
+
+      // Tap toggles flip
+      cards.forEach(function (card) {
+        card.addEventListener('click', function () {
+          card.classList.toggle('flipped');
         });
+      });
 
-        document.querySelectorAll('.case-flip').forEach(function (card) {
-          card.addEventListener('click', function () {
-            card.classList.toggle('flipped');
+      // Auto-flip to back when card enters viewport (once per card)
+      if ('IntersectionObserver' in window) {
+        var observer = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting && !entry.target.dataset.autoFlipped) {
+              entry.target.dataset.autoFlipped = '1';
+              setTimeout(function () {
+                entry.target.classList.add('flipped');
+              }, 420);
+            }
           });
+        }, { threshold: 0.45 });
+
+        cards.forEach(function (card) {
+          observer.observe(card);
         });
       }
     })();
