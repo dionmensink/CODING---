@@ -8,6 +8,7 @@
   position: relative;
   overflow: hidden;
   background: var(--ink);
+  margin-top: calc(-1 * var(--nav-height));
 }
 
 .page-hero--tall {
