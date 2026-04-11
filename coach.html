@@ -27,43 +27,43 @@
     .reveal-delay-1 { transition-delay: 0.08s; }
     .reveal-delay-2 { transition-delay: 0.16s; }
 
-    /* ---- Numbers strip ---- */
+    /* ---- Numbers list ---- */
     .coach-numbers {
       background: var(--ink);
       border-top: 1px solid rgba(245,240,232,0.08);
       border-bottom: 1px solid rgba(245,240,232,0.08);
-      padding: 56px 0;
+      padding: 64px 0;
     }
     .coach-numbers__inner {
       max-width: var(--max-width);
       margin: 0 auto;
       padding: 0 40px;
-      display: grid;
-      grid-template-columns: repeat(5, 1fr);
+      display: flex;
+      flex-direction: column;
       gap: 0;
     }
     .coach-num {
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-      padding: 0 28px;
-      border-right: 1px solid rgba(245,240,232,0.08);
+      display: grid;
+      grid-template-columns: 160px 1fr;
+      align-items: baseline;
+      gap: 32px;
+      padding: 28px 0;
+      border-bottom: 1px solid rgba(245,240,232,0.07);
     }
-    .coach-num:first-child { padding-left: 0; }
-    .coach-num:last-child  { border-right: none; }
+    .coach-num:last-child { border-bottom: none; }
     .coach-num__value {
-      font-size: clamp(1.8rem, 3vw, 2.6rem);
+      font-size: clamp(2rem, 3.5vw, 3rem);
       font-weight: 700;
       color: var(--orange);
       line-height: 1;
       letter-spacing: -0.02em;
+      text-align: right;
     }
     .coach-num__label {
-      font-size: 0.72rem;
-      font-weight: 400;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: rgba(245,240,232,0.38);
+      font-size: 0.92rem;
+      font-weight: 300;
+      color: rgba(245,240,232,0.55);
+      line-height: 1.55;
     }
 
     /* ---- Aanpak split ---- */
@@ -170,17 +170,15 @@
 
     /* ---- Responsive ---- */
     @media (max-width: 900px) {
-      .coach-numbers__inner {
-        grid-template-columns: repeat(3, 1fr);
-        gap: 28px;
-      }
-      .coach-num { border-right: none; padding: 0; }
+      .coach-num { grid-template-columns: 120px 1fr; gap: 20px; }
       .coach-aanpak__inner { grid-template-columns: 1fr; gap: 48px; }
       .coach-aanpak__left { position: static; }
       .coach-strategie__inner { grid-template-columns: 1fr; gap: 40px; }
     }
     @media (max-width: 600px) {
-      .coach-numbers__inner { grid-template-columns: repeat(2, 1fr); padding: 0 24px; }
+      .coach-numbers__inner { padding: 0 24px; }
+      .coach-num { grid-template-columns: 100px 1fr; gap: 16px; padding: 22px 0; }
+      .coach-num__label { font-size: 0.82rem; }
       .coach-aanpak__inner,
       .coach-strategie__inner { padding: 0 24px; }
       .coach-aanpak { padding: 64px 0; }
@@ -244,24 +242,24 @@
     <div class="coach-numbers" aria-label="Resultaten">
       <div class="coach-numbers__inner">
         <div class="coach-num reveal">
-          <span class="coach-num__value">37</span>
-          <span class="coach-num__label">Projecten afgerond</span>
+          <span class="stat__number coach-num__value" data-target="37" data-suffix="">37</span>
+          <span class="coach-num__label">Professionele projecten succesvol afgerond.</span>
         </div>
-        <div class="coach-num reveal reveal-delay-1">
-          <span class="coach-num__value">220+</span>
-          <span class="coach-num__label">Breakthrough-sessies</span>
+        <div class="coach-num reveal">
+          <span class="stat__number coach-num__value" data-target="220" data-suffix="+">220+</span>
+          <span class="coach-num__label">Geregistreerde breakthrough-sessies.</span>
         </div>
-        <div class="coach-num reveal reveal-delay-1">
-          <span class="coach-num__value">21+</span>
-          <span class="coach-num__label">Naar het topniveau</span>
+        <div class="coach-num reveal">
+          <span class="stat__number coach-num__value" data-target="21" data-suffix="+">21+</span>
+          <span class="coach-num__label">Cliënten naar het absolute topniveau getild met Mensinc.</span>
         </div>
-        <div class="coach-num reveal reveal-delay-2">
+        <div class="coach-num reveal">
           <span class="coach-num__value">€2M+</span>
-          <span class="coach-num__label">Extra omzet voor cliënten</span>
+          <span class="coach-num__label">Extra omzet voor cliënten. Gerealiseerd met <strong style="color:rgba(245,240,232,0.75);font-weight:600;">0 euro</strong> marketingbudget — tot vandaag zonder website of social media.</span>
         </div>
-        <div class="coach-num reveal reveal-delay-2">
-          <span class="coach-num__value">8+</span>
-          <span class="coach-num__label">Jaar. Geen marketing.</span>
+        <div class="coach-num reveal">
+          <span class="stat__number coach-num__value" data-target="8" data-suffix="+">8+</span>
+          <span class="coach-num__label">Jaar op een messcherpe missie: het versterken van de gedreven individuen met wie ik werk.</span>
         </div>
       </div>
     </div>
