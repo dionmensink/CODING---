@@ -1,10 +1,10 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="nl">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Dion als Coach — Mensinc</title>
-  <meta name="description" content="Dion Mensink coacht high performers op omzetverhoging en persoonlijke prestatie. Offline, 1-op-1, bewezen resultaat.">
+  <meta name="description" content="Prestatiepsychologie voor Bouwers, Denkers & Creatieven. Dion versimpelt decision-making, herstructureert strategie en ontwerpt teams opnieuw.">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -26,6 +26,165 @@
     .reveal.revealed { opacity: 1; transform: translateY(0); }
     .reveal-delay-1 { transition-delay: 0.08s; }
     .reveal-delay-2 { transition-delay: 0.16s; }
+
+    /* ---- Numbers strip ---- */
+    .coach-numbers {
+      background: var(--ink);
+      border-top: 1px solid rgba(245,240,232,0.08);
+      border-bottom: 1px solid rgba(245,240,232,0.08);
+      padding: 56px 0;
+    }
+    .coach-numbers__inner {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0 40px;
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 0;
+    }
+    .coach-num {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      padding: 0 28px;
+      border-right: 1px solid rgba(245,240,232,0.08);
+    }
+    .coach-num:first-child { padding-left: 0; }
+    .coach-num:last-child  { border-right: none; }
+    .coach-num__value {
+      font-size: clamp(1.8rem, 3vw, 2.6rem);
+      font-weight: 700;
+      color: var(--orange);
+      line-height: 1;
+      letter-spacing: -0.02em;
+    }
+    .coach-num__label {
+      font-size: 0.72rem;
+      font-weight: 400;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: rgba(245,240,232,0.38);
+    }
+
+    /* ---- Aanpak split ---- */
+    .coach-aanpak {
+      padding: 96px 0;
+      border-top: 1px solid var(--ink-faint);
+    }
+    .coach-aanpak__inner {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0 40px;
+      display: grid;
+      grid-template-columns: 1fr 1.4fr;
+      gap: 80px;
+      align-items: start;
+    }
+    .coach-aanpak__left {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      position: sticky;
+      top: calc(var(--nav-height) + 32px);
+    }
+    .coach-aanpak__title {
+      font-size: clamp(1.8rem, 3vw, 2.6rem);
+      font-weight: 700;
+      color: var(--ink);
+      line-height: 1.1;
+      margin: 0;
+    }
+    .coach-aanpak__sub {
+      font-size: 0.95rem;
+      color: var(--ink-mid);
+      line-height: 1.7;
+      max-width: 32ch;
+    }
+
+    /* Steps */
+    .coach-steps {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+    .coach-step {
+      display: grid;
+      grid-template-columns: 48px 1fr;
+      gap: 24px;
+      padding: 32px 0;
+      border-bottom: 1px solid var(--ink-faint);
+      align-items: start;
+    }
+    .coach-step:first-child { padding-top: 0; }
+    .coach-step__num {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      color: var(--orange);
+      padding-top: 4px;
+    }
+    .coach-step__title {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--ink);
+      letter-spacing: 0.02em;
+      margin: 0 0 8px;
+    }
+    .coach-step__body {
+      font-size: 0.9rem;
+      color: var(--ink-mid);
+      line-height: 1.7;
+      margin: 0;
+    }
+
+    /* ---- Strategie ---- */
+    .coach-strategie {
+      padding: 80px 0;
+      background: var(--cream-dark);
+      border-top: 1px solid var(--ink-faint);
+    }
+    .coach-strategie__inner {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0 40px;
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 80px;
+      align-items: center;
+    }
+    .coach-strategie__quote {
+      font-size: clamp(1.1rem, 2vw, 1.45rem);
+      font-weight: 300;
+      font-style: italic;
+      color: var(--ink-mid);
+      line-height: 1.6;
+      margin: 0;
+      border-left: 3px solid var(--orange);
+      padding-left: 24px;
+    }
+    .coach-strategie__quote strong {
+      font-weight: 700;
+      color: var(--ink);
+      font-style: normal;
+    }
+
+    /* ---- Responsive ---- */
+    @media (max-width: 900px) {
+      .coach-numbers__inner {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 28px;
+      }
+      .coach-num { border-right: none; padding: 0; }
+      .coach-aanpak__inner { grid-template-columns: 1fr; gap: 48px; }
+      .coach-aanpak__left { position: static; }
+      .coach-strategie__inner { grid-template-columns: 1fr; gap: 40px; }
+    }
+    @media (max-width: 600px) {
+      .coach-numbers__inner { grid-template-columns: repeat(2, 1fr); padding: 0 24px; }
+      .coach-aanpak__inner,
+      .coach-strategie__inner { padding: 0 24px; }
+      .coach-aanpak { padding: 64px 0; }
+    }
   </style>
 </head>
 <body>
@@ -64,14 +223,14 @@
       <img
         class="page-hero__image parallax engraving"
         src="images/dion-coach.png"
-        alt="Dion Mensink — portret als coach"
+        alt="Dion Mensink als coach"
         loading="eager"
         style="object-position: center top;"
       >
       <div class="page-hero__overlay"></div>
       <div class="page-hero__content container">
-        <p class="page-hero__label">Mensinc</p>
-        <h1 class="page-hero__title">Dion als<br>Coach</h1>
+        <p class="page-hero__label">Prestatie Meesterschap</p>
+        <h1 class="page-hero__title">Voor de<br>Bouwers,<br>Denkers &amp;<br>Creatieven</h1>
       </div>
     </section>
 
@@ -79,113 +238,110 @@
     <section class="page-intro" aria-label="Introductie">
       <div class="page-intro__inner">
         <div class="page-intro__aside reveal">
-          <span class="label">Bewezen resultaat</span>
-          <span class="page-intro__aside-num">40+</span>
-          <span class="stat__label">high performers</span>
+          <span class="label">Top-down aanpak</span>
+          <span class="page-intro__aside-num">21+</span>
+          <span class="stat__label">cliënten naar het topniveau</span>
         </div>
         <div class="page-intro__body">
           <p class="page-intro__lead reveal">
-            Dion coacht ondernemers en professionals die al goed presteren — maar weten dat er meer in zit. Hij werkt exclusief offline, 1-op-1, en zonder compromis op diepgang.
+            Ik versimpel je decision-making, herstructureer je strategie en ontwerp je teams opnieuw.
           </p>
           <p class="reveal">
-            Zijn coaching richt zich op de driehoek van mindset, gedrag en resultaat. Wat drijft jou? Wat houdt je tegen? En hoe vertaal je dat naar meetbare groei in omzet en prestatie? Dion heeft meer dan 40 high performers begeleid naar het volgende niveau.
+            Ik versterk jouw organisatie top-down. Dat houdt in dat ik 1-op-1 met jou werk als leider — om de organisatie te stroomlijnen, omzet te verhogen of jouw managementvaardigheden te verbeteren. Creëer de focus die direct doorwerkt in een hogere omzet en een beter resultaat.
           </p>
           <div class="divider reveal"></div>
-          <a class="btn reveal" href="contact.html">Start jouw traject</a>
+          <a class="btn btn--filled reveal" href="contact.html">Start jouw traject</a>
         </div>
       </div>
     </section>
 
-    <!-- STATS -->
-    <div class="stats-row" aria-label="Kerngetallen">
-      <div class="stats-row__inner">
-        <div class="stat reveal">
-          <span class="stat__number" data-target="40" data-suffix="+">40+</span>
-          <span class="stat__label">High performers gecoacht</span>
+    <!-- NUMBERS -->
+    <div class="coach-numbers" aria-label="Resultaten">
+      <div class="coach-numbers__inner">
+        <div class="coach-num reveal">
+          <span class="coach-num__value">37</span>
+          <span class="coach-num__label">Projecten afgerond</span>
         </div>
-        <div class="stat reveal reveal-delay-1">
-          <span class="stat__number">1-op-1</span>
-          <span class="stat__label">Altijd persoonlijk</span>
+        <div class="coach-num reveal reveal-delay-1">
+          <span class="coach-num__value">220+</span>
+          <span class="coach-num__label">Breakthrough-sessies</span>
         </div>
-        <div class="stat reveal reveal-delay-2">
-          <span class="stat__number">Offline</span>
-          <span class="stat__label">Enkel in persoon</span>
+        <div class="coach-num reveal reveal-delay-1">
+          <span class="coach-num__value">21+</span>
+          <span class="coach-num__label">Naar het topniveau</span>
+        </div>
+        <div class="coach-num reveal reveal-delay-2">
+          <span class="coach-num__value">€2M+</span>
+          <span class="coach-num__label">Extra omzet voor cliënten</span>
+        </div>
+        <div class="coach-num reveal reveal-delay-2">
+          <span class="coach-num__value">8+</span>
+          <span class="coach-num__label">Jaar. Geen marketing.</span>
         </div>
       </div>
     </div>
 
-    <!-- AANBOD -->
-    <section class="aanbod section" aria-label="Coaching aanbod">
-      <div class="aanbod__inner">
-        <div class="aanbod__header reveal">
-          <span class="label">Aanbod</span>
-          <h2>Waar Dion op coacht</h2>
+    <!-- AANPAK -->
+    <section class="coach-aanpak" aria-label="Aanpak">
+      <div class="coach-aanpak__inner">
+        <div class="coach-aanpak__left reveal">
+          <span class="label">Aanpak</span>
+          <h2 class="coach-aanpak__title">Hoe het werkt</h2>
+          <p class="coach-aanpak__sub">Vier stappen. Eén doel: jij op het volgende niveau.</p>
+          <div class="divider" style="margin-top: 16px;"></div>
+          <a class="btn" href="contact.html" style="margin-top: 8px;">Plan een gesprek</a>
         </div>
-        <div class="aanbod__grid">
-          <div class="aanbod-card reveal">
-            <span class="aanbod-card__number">01</span>
-            <h3 class="aanbod-card__title">Omzetverhoging</h3>
-            <p class="aanbod-card__body">Denken, gedrag en acties afstemmen op groei. Blokkades opsporen die omzet in de weg staan — en ze structureel oplossen.</p>
+        <div class="coach-steps">
+          <div class="coach-step reveal">
+            <span class="coach-step__num">01</span>
+            <div>
+              <h4 class="coach-step__title">Intakegesprek</h4>
+              <p class="coach-step__body">Een open, eerlijk gesprek over waar je staat en wat je wilt bereiken. Geen verplichtingen — wel duidelijkheid over of er een match is.</p>
+            </div>
           </div>
-          <div class="aanbod-card reveal reveal-delay-1">
-            <span class="aanbod-card__number">02</span>
-            <h3 class="aanbod-card__title">Focus &amp; Prestatie</h3>
-            <p class="aanbod-card__body">Energie, prioriteiten en focus zo inrichten dat je maximaal presteert zonder jezelf te verbranden. Gericht op duurzame topprestaties.</p>
+          <div class="coach-step reveal">
+            <span class="coach-step__num">02</span>
+            <div>
+              <h4 class="coach-step__title">Diagnose</h4>
+              <p class="coach-step__body">Dion gaat op zoek naar jouw essentie. Wat houdt je daadwerkelijk tegen om het volgende niveau te bereiken? Patronen, overtuigingen, blinde vlekken.</p>
+            </div>
           </div>
-          <div class="aanbod-card reveal reveal-delay-2">
-            <span class="aanbod-card__number">03</span>
-            <h3 class="aanbod-card__title">Leiderschapsontwikkeling</h3>
-            <p class="aanbod-card__body">Jouw effect op anderen vergroten. Als leider, als ondernemer, als mens. Authentiek, scherp en met directe impact.</p>
+          <div class="coach-step reveal">
+            <span class="coach-step__num">03</span>
+            <div>
+              <h4 class="coach-step__title">1-op-1 Sessies</h4>
+              <p class="coach-step__body">Altijd offline, altijd persoonlijk. De organisatie is een verlengstuk van jezelf — als we stappen zetten in de sessie, werkt dat direct door in jouw organisatie.</p>
+            </div>
+          </div>
+          <div class="coach-step reveal">
+            <span class="coach-step__num">04</span>
+            <div>
+              <h4 class="coach-step__title">Resultaat</h4>
+              <p class="coach-step__body">Meetbare groei in omzet, focus en leiderschap. €2 miljoen+ extra omzet gerealiseerd voor cliënten — met nul euro marketingbudget.</p>
+            </div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- AANPAK -->
-    <section class="aanpak" aria-label="Aanpak">
-      <div class="aanpak__inner">
-        <div class="aanpak__header reveal">
-          <span class="label">Aanpak</span>
-          <h2>Hoe het traject werkt</h2>
+    <!-- STRATEGIE QUOTE -->
+    <section class="coach-strategie" aria-label="Strategie">
+      <div class="coach-strategie__inner">
+        <div class="reveal">
+          <span class="label" style="margin-bottom: 16px; display: block;">De strategie</span>
+          <h2 style="font-size: clamp(1.4rem, 2.5vw, 2rem); font-weight: 700; color: var(--ink); line-height: 1.2; margin: 0;">Jouw organisatie is een verlengstuk van jouzelf.</h2>
         </div>
-        <div class="aanpak__steps">
-          <div class="aanpak-step reveal">
-            <span class="aanpak-step__num">01</span>
-            <div class="aanpak-step__body">
-              <h4 class="aanpak-step__title">Intakegesprek</h4>
-              <p class="aanpak-step__desc">Een open, eerlijk gesprek over waar je staat, wat je wilt bereiken en of er een match is. Geen verplichtingen — wel duidelijkheid.</p>
-            </div>
-          </div>
-          <div class="aanpak-step reveal">
-            <span class="aanpak-step__num">02</span>
-            <div class="aanpak-step__body">
-              <h4 class="aanpak-step__title">Diagnose</h4>
-              <p class="aanpak-step__desc">Dion duikt in jouw situatie: patronen, overtuigingen, gewoonten en blinde vlekken. Wat werkt? Wat houdt je klein?</p>
-            </div>
-          </div>
-          <div class="aanpak-step reveal">
-            <span class="aanpak-step__num">03</span>
-            <div class="aanpak-step__body">
-              <h4 class="aanpak-step__title">Trajectbegeleiding</h4>
-              <p class="aanpak-step__desc">Sessies op locatie, altijd 1-op-1. Directe feedback, harde vragen en concrete actieplannen. Dion coacht vanuit verbinding én confrontatie.</p>
-            </div>
-          </div>
-          <div class="aanpak-step reveal">
-            <span class="aanpak-step__num">04</span>
-            <div class="aanpak-step__body">
-              <h4 class="aanpak-step__title">Resultaat</h4>
-              <p class="aanpak-step__desc">Meetbare verandering in gedrag, omzet en zelfvertrouwen. Geen vage belofte — concrete groei die je zelf voelt en anderen zien.</p>
-            </div>
-          </div>
-        </div>
+        <blockquote class="coach-strategie__quote reveal">
+          Wij houden 1-op-1 sessies waarin ik op zoek ga naar <strong>jouw essentie</strong>. Wat is daadwerkelijk hetgeen wat jou tegenhoudt om het volgende niveau te bereiken? Als we de stappen zetten in de sessie, dan <strong>werkt dat direct door in jouw organisatie</strong>.
+        </blockquote>
       </div>
     </section>
 
     <!-- CTA -->
     <section class="page-cta" aria-label="Traject starten">
       <div class="page-cta__inner">
-        <span class="label reveal">Klaar voor het volgende niveau?</span>
-        <h2 class="page-cta__title reveal">Laten we kijken of er een match is.</h2>
+        <span class="label reveal">Beperkt aantal plekken</span>
+        <h2 class="page-cta__title reveal">Klaar voor het<br>volgende niveau?</h2>
         <a class="btn btn--filled reveal" href="contact.html">Start jouw traject</a>
       </div>
     </section>
