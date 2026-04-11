@@ -14,6 +14,7 @@
   <link rel="stylesheet" href="css/base.css">
   <link rel="stylesheet" href="css/nav.css">
   <link rel="stylesheet" href="css/footer.css">
+  <link rel="stylesheet" href="css/landing.css">
   <link rel="stylesheet" href="css/pages.css">
 
   <style>
@@ -26,6 +27,112 @@
     .reveal.revealed { opacity: 1; transform: translateY(0); }
     .reveal-delay-1 { transition-delay: 0.08s; }
     .reveal-delay-2 { transition-delay: 0.16s; }
+
+    /* ---- Case flip cards ---- */
+    .cases-flip-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-top: 48px;
+    }
+    .case-flip {
+      aspect-ratio: 3 / 4;
+      perspective: 1200px;
+      cursor: pointer;
+    }
+    .case-flip__inner {
+      position: relative;
+      width: 100%; height: 100%;
+      transform-style: preserve-3d;
+      transition: transform 0.75s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      will-change: transform;
+    }
+    .case-flip:hover .case-flip__inner,
+    .case-flip.flipped .case-flip__inner {
+      transform: rotateY(180deg);
+    }
+    .case-flip__front,
+    .case-flip__back {
+      position: absolute;
+      inset: 0;
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+      overflow: hidden;
+    }
+    /* Front */
+    .case-flip__front {
+      background: var(--cream-dark);
+      border: 1px solid var(--ink-faint);
+      padding: 32px 28px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .case-flip__tag {
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--orange);
+    }
+    .case-flip__title {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--ink);
+      line-height: 1.25;
+      letter-spacing: 0.01em;
+    }
+    .case-flip__rule {
+      width: 28px; height: 1px;
+      background: var(--ink-faint);
+      flex-shrink: 0;
+    }
+    .case-flip__section-label {
+      font-size: 0.62rem;
+      font-weight: 600;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--ink-light);
+      margin-bottom: 4px;
+    }
+    .case-flip__text {
+      font-size: 0.85rem;
+      color: var(--ink-mid);
+      line-height: 1.6;
+      margin: 0;
+    }
+    .case-flip__hint {
+      margin-top: auto;
+      font-size: 0.62rem;
+      font-weight: 400;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--ink-faint);
+    }
+    /* Back */
+    .case-flip__back {
+      background: var(--orange);
+      transform: rotateY(180deg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .case-flip__back-label {
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      font-weight: 700;
+      color: var(--cream);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    @media (max-width: 1024px) {
+      .cases-flip-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 600px) {
+      .cases-flip-grid { grid-template-columns: 1fr; }
+      .case-flip { aspect-ratio: 4 / 3; }
+      .case-flip:hover .case-flip__inner { transform: none; }
+    }
 
     /* Quote / testimonial block */
     .testimonials {
@@ -132,85 +239,145 @@
       <div class="cases-grid__inner">
         <div class="cases-grid__header reveal">
           <span class="label">Praktijk</span>
-          <h2>Wat anderen zeggen</h2>
+          <h2>Resultaten in het echt</h2>
         </div>
-        <div class="cases-grid__items">
+        <div class="cases-flip-grid">
 
-          <div class="case-card reveal">
-            <span class="case-card__tag">Training — Zorgsector</span>
-            <h3 class="case-card__title">Agressiemanagement op de SEH</h3>
-            <div class="case-card__challenge">
-              <span class="case-card__meta-label">Uitdaging</span>
-              <p class="case-card__meta-value">Verpleegkundig personeel ervoer toenemend verbaal en fysiek geweld van patiënten en bezoekers.</p>
-            </div>
-            <div class="case-card__result">
-              <span class="case-card__meta-label">Resultaat</span>
-              <p class="case-card__meta-value">Na een incompany traject van 3 sessies rapporteerde het team meer grip, minder escalaties en hogere werkplezier.</p>
+          <!-- 1: Efteling -->
+          <div class="case-flip reveal">
+            <div class="case-flip__inner">
+              <div class="case-flip__front">
+                <span class="case-flip__tag">Training — De Efteling</span>
+                <h3 class="case-flip__title">Omgaan met agressie binnen De Efteling</h3>
+                <div class="case-flip__rule"></div>
+                <div>
+                  <p class="case-flip__section-label">Uitdaging</p>
+                  <p class="case-flip__text">Wachtende ouders, lange rijen, huilende kinderen — zelfs in een park als De Efteling loopt spanning hoog op.</p>
+                </div>
+                <div>
+                  <p class="case-flip__section-label">Resultaat</p>
+                  <p class="case-flip__text">Samen met REACT Advies & Training trainden wij het volledige team (2025–2026): van beveiligers tot kassamedewerkers. Één eenduidige aanpak voor emotie en agressie.</p>
+                </div>
+                <span class="case-flip__hint">Hover om te ontdekken</span>
+              </div>
+              <div class="case-flip__back">
+                <span class="case-flip__back-label">Trainer</span>
+              </div>
             </div>
           </div>
 
-          <div class="case-card reveal reveal-delay-1">
-            <span class="case-card__tag">Coaching — Ondernemer</span>
-            <h3 class="case-card__title">Van 80k naar 160k omzet in 11 maanden</h3>
-            <div class="case-card__challenge">
-              <span class="case-card__meta-label">Uitdaging</span>
-              <p class="case-card__meta-value">Freelance consultant met veel expertise maar structurele onderpricing en moeite met verkopen.</p>
-            </div>
-            <div class="case-card__result">
-              <span class="case-card__meta-label">Resultaat</span>
-              <p class="case-card__meta-value">Dankzij positioneringscoaching, prijsstrategie en verkoopgedrag verdubbelde de omzet binnen een jaar.</p>
-            </div>
-          </div>
-
-          <div class="case-card reveal">
-            <span class="case-card__tag">Training — Overheid</span>
-            <h3 class="case-card__title">Agressietraining gemeentebalie</h3>
-            <div class="case-card__challenge">
-              <span class="case-card__meta-label">Uitdaging</span>
-              <p class="case-card__meta-value">Baliemedewerkers voelden zich onvoldoende toegerust voor agressieve klantinteracties.</p>
-            </div>
-            <div class="case-card__result">
-              <span class="case-card__meta-label">Resultaat</span>
-              <p class="case-card__meta-value">Blended trainingstraject (online + incompany) voor 35 medewerkers met meetbare verbetering in zelfvertrouwen en gedrag.</p>
+          <!-- 2: Influencer -->
+          <div class="case-flip reveal">
+            <div class="case-flip__inner">
+              <div class="case-flip__front">
+                <span class="case-flip__tag">Coaching — Influencer</span>
+                <h3 class="case-flip__title">Van 0 naar 160k volgers</h3>
+                <div class="case-flip__rule"></div>
+                <div>
+                  <p class="case-flip__section-label">Uitdaging</p>
+                  <p class="case-flip__text">Veel talent, weinig middelen. Dion zag het potentieel en startte een traject op percentuele basis — zonder initiële investering van de klant.</p>
+                </div>
+                <div>
+                  <p class="case-flip__section-label">Resultaat</p>
+                  <p class="case-flip__text">In ~12 maanden groeide de klant van een idee naar een levendige community én een inkomen. Met ~160k volgers is dit een van de mooiste Mensinc-succesverhalen.</p>
+                </div>
+                <span class="case-flip__hint">Hover om te ontdekken</span>
+              </div>
+              <div class="case-flip__back">
+                <span class="case-flip__back-label">Coach</span>
+              </div>
             </div>
           </div>
 
-          <div class="case-card reveal reveal-delay-1">
-            <span class="case-card__tag">Coaching — Salesleider</span>
-            <h3 class="case-card__title">Leiderschapsontwikkeling salesmanager</h3>
-            <div class="case-card__challenge">
-              <span class="case-card__meta-label">Uitdaging</span>
-              <p class="case-card__meta-value">Ervaren salesmanager met hoge persoonlijke prestatie maar moeite om het team mee omhoog te trekken.</p>
-            </div>
-            <div class="case-card__result">
-              <span class="case-card__meta-label">Resultaat</span>
-              <p class="case-card__meta-value">Na 6 coachingsessies verbeterde teamdynamiek, nam omzet van het team met 28% toe en daalde het verzuim.</p>
-            </div>
-          </div>
-
-          <div class="case-card reveal">
-            <span class="case-card__tag">Training — Onderwijs</span>
-            <h3 class="case-card__title">Grensoverschrijdend gedrag op de werkvloer</h3>
-            <div class="case-card__challenge">
-              <span class="case-card__meta-label">Uitdaging</span>
-              <p class="case-card__meta-value">School met toename in agressief gedrag van leerlingen richting docenten en onderwijsondersteuners.</p>
-            </div>
-            <div class="case-card__result">
-              <span class="case-card__meta-label">Resultaat</span>
-              <p class="case-card__meta-value">Schoolbreed trainingsprogramma voor 60+ medewerkers met een duidelijk protocol en vertrouwen in de aanpak.</p>
+          <!-- 3: Handhaving Utrecht -->
+          <div class="case-flip reveal">
+            <div class="case-flip__inner">
+              <div class="case-flip__front">
+                <span class="case-flip__tag">Training — Handhaving Utrecht</span>
+                <h3 class="case-flip__title">Bijscholing agressiehantering</h3>
+                <div class="case-flip__rule"></div>
+                <div>
+                  <p class="case-flip__section-label">Uitdaging</p>
+                  <p class="case-flip__text">De handhavers van Utrecht opereren dagelijks in een omgeving met lastig gedrag — op straat en in contact met wijkagenten en beleidsmakers.</p>
+                </div>
+                <div>
+                  <p class="case-flip__section-label">Resultaat</p>
+                  <p class="case-flip__text">Elk teamlid bijgeschoold op agressiehantering. Beleidsuitdagingen in kaart gebracht en teruggekoppeld aan het management.</p>
+                </div>
+                <span class="case-flip__hint">Hover om te ontdekken</span>
+              </div>
+              <div class="case-flip__back">
+                <span class="case-flip__back-label">Trainer</span>
+              </div>
             </div>
           </div>
 
-          <div class="case-card reveal reveal-delay-1">
-            <span class="case-card__tag">Coaching — Directeur</span>
-            <h3 class="case-card__title">Focus en beslissingsscherpte herstellen</h3>
-            <div class="case-card__challenge">
-              <span class="case-card__meta-label">Uitdaging</span>
-              <p class="case-card__meta-value">Directeur van een groeiend MKB-bedrijf ervoer overload, verloor scherpte en begon reactief te werken.</p>
+          <!-- 4: CEO Hedgefonds -->
+          <div class="case-flip reveal">
+            <div class="case-flip__inner">
+              <div class="case-flip__front">
+                <span class="case-flip__tag">Coaching — CEO Hedgefonds</span>
+                <h3 class="case-flip__title">Strategische besluitvorming voor meer rendement</h3>
+                <div class="case-flip__rule"></div>
+                <div>
+                  <p class="case-flip__section-label">Uitdaging</p>
+                  <p class="case-flip__text">De CEO's visie landde niet bij zijn team. Het bedrijf dreigde vast te lopen.</p>
+                </div>
+                <div>
+                  <p class="case-flip__section-label">Resultaat</p>
+                  <p class="case-flip__text">Via intensieve 1-op-1 coaching strategie aangescherpt, bedrijfsvoering vereenvoudigd en managementvaardigheden versterkt. Cumulatief 12% winstgroei per maand.</p>
+                </div>
+                <span class="case-flip__hint">Hover om te ontdekken</span>
+              </div>
+              <div class="case-flip__back">
+                <span class="case-flip__back-label">Coach</span>
+              </div>
             </div>
-            <div class="case-card__result">
-              <span class="case-card__meta-label">Resultaat</span>
-              <p class="case-card__meta-value">Door 8 wekelijkse sessies herontdekte hij zijn focus, delegeerde effectiever en zette 3 strategische beslissingen door.</p>
+          </div>
+
+          <!-- 5: SEH Amersfoort -->
+          <div class="case-flip reveal">
+            <div class="case-flip__inner">
+              <div class="case-flip__front">
+                <span class="case-flip__tag">Training — SEH Amersfoort</span>
+                <h3 class="case-flip__title">Agressiemanagement op de spoedeisende hulp</h3>
+                <div class="case-flip__rule"></div>
+                <div>
+                  <p class="case-flip__section-label">Uitdaging</p>
+                  <p class="case-flip__text">Verpleegkundig personeel had steeds vaker te maken met verbaal en fysiek geweld van patiënten en bezoekers.</p>
+                </div>
+                <div>
+                  <p class="case-flip__section-label">Resultaat</p>
+                  <p class="case-flip__text">Na twee sessies rapporteerde het team meer grip op situaties, minder incidenten en een hoger werkplezier.</p>
+                </div>
+                <span class="case-flip__hint">Hover om te ontdekken</span>
+              </div>
+              <div class="case-flip__back">
+                <span class="case-flip__back-label">Trainer</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- 6: CEO Distributiebedrijf -->
+          <div class="case-flip reveal">
+            <div class="case-flip__inner">
+              <div class="case-flip__front">
+                <span class="case-flip__tag">Coaching — CEO Distributiebedrijf</span>
+                <h3 class="case-flip__title">Persoonlijk meesterschap: leiding durven nemen</h3>
+                <div class="case-flip__rule"></div>
+                <div>
+                  <p class="case-flip__section-label">Uitdaging</p>
+                  <p class="case-flip__text">Een succesvolle CEO die zijn eigen strategie niet meer vertrouwde — en daardoor zijn team niet meer durfde aan te sturen.</p>
+                </div>
+                <div>
+                  <p class="case-flip__section-label">Resultaat</p>
+                  <p class="case-flip__text">Pijnpunten blootgelegd en verholpen. Weer vol vertrouwen aan het roer. Het bedrijf zette maand na maand records in omzet én winst.</p>
+                </div>
+                <span class="case-flip__hint">Hover om te ontdekken</span>
+              </div>
+              <div class="case-flip__back">
+                <span class="case-flip__back-label">Coach</span>
+              </div>
             </div>
           </div>
 
@@ -305,5 +472,24 @@
 
   <script src="js/transitions.js"></script>
   <script src="js/main.js"></script>
+  <script>
+    (function () {
+      // Touch: tap to flip case cards
+      var isTouchDevice = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
+
+      if (isTouchDevice) {
+        // Update hint text for touch
+        document.querySelectorAll('.case-flip__hint').forEach(function (el) {
+          el.textContent = 'Tik om te ontdekken';
+        });
+
+        document.querySelectorAll('.case-flip').forEach(function (card) {
+          card.addEventListener('click', function () {
+            card.classList.toggle('flipped');
+          });
+        });
+      }
+    })();
+  </script>
 </body>
 </html>
