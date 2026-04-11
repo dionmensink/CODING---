@@ -27,24 +27,25 @@
       flex-direction: column;
     }
 
-    /* Amsterdam skyline pinned to bottom */
+    /* Skyline covers the full section height */
     .contact-page__skyline {
       position: absolute;
-      bottom: 0;
-      left: 0;
+      inset: 0;
       width: 100%;
-      display: block;
+      height: 100%;
+      object-fit: cover;
+      object-position: center bottom;
       filter: grayscale(100%) contrast(1.1) brightness(0.35);
       pointer-events: none;
       z-index: 0;
     }
 
-    /* Gradient: solid ink at top, fades into skyline at bottom */
+    /* Gradient over the skyline */
     .contact-page::before {
       content: '';
       position: absolute;
       inset: 0;
-      background: linear-gradient(to bottom, var(--ink) 20%, rgba(26,20,9,0.6) 100%);
+      background: linear-gradient(to bottom, var(--ink) 15%, rgba(26,20,9,0.5) 100%);
       z-index: 1;
       pointer-events: none;
     }
