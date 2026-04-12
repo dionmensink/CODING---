@@ -27,6 +27,56 @@
     .reveal-delay-1 { transition-delay: 0.08s; }
     .reveal-delay-2 { transition-delay: 0.16s; }
 
+    /* ---- Coach intro with photo ---- */
+    .coach-intro__wrap {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 80px 40px 64px;
+      display: grid;
+      grid-template-columns: 1fr 400px;
+      gap: 72px;
+      align-items: center;
+    }
+    .coach-intro__text {
+      display: grid;
+      grid-template-columns: 200px 1fr;
+      gap: 48px;
+      align-items: start;
+    }
+    .coach-intro__img {
+      position: relative;
+      height: 600px;
+      border-radius: 2px;
+      overflow: hidden;
+    }
+    .coach-intro__img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 10%;
+      display: block;
+    }
+    @media (max-width: 1100px) {
+      .coach-intro__wrap { grid-template-columns: 1fr 340px; gap: 48px; }
+      .coach-intro__img { height: 520px; }
+    }
+    @media (max-width: 860px) {
+      .coach-intro__wrap {
+        grid-template-columns: 1fr;
+        gap: 0;
+        padding: 48px 24px 0;
+      }
+      .coach-intro__text {
+        grid-template-columns: 1fr;
+        gap: 24px;
+      }
+      .coach-intro__img {
+        height: 480px;
+        margin: 40px -24px 0;
+        border-radius: 0;
+      }
+    }
+
     /* ---- Numbers list ---- */
     .coach-numbers {
       background: var(--ink);
@@ -217,23 +267,28 @@
   <main>
 
     <!-- INTRO -->
-    <section class="page-intro" aria-label="Introductie">
-      <div class="page-intro__inner">
-        <div class="page-intro__aside reveal">
-          <span class="label">Prestatie Meesterschap</span>
-          <span class="page-intro__aside-num">21+</span>
-          <span class="stat__label">cliënten naar het topniveau</span>
+    <section class="page-intro" aria-label="Introductie" style="padding: 0;">
+      <div class="coach-intro__wrap">
+        <div class="coach-intro__text">
+          <div class="page-intro__aside reveal">
+            <span class="label">Prestatie Meesterschap</span>
+            <span class="page-intro__aside-num">21+</span>
+            <span class="stat__label">cliënten naar het topniveau</span>
+          </div>
+          <div class="page-intro__body">
+            <h1 class="reveal" style="font-size: clamp(1.8rem, 3.5vw, 2.8rem); font-weight: 700; color: var(--ink); line-height: 1.1; margin: 0 0 20px;">Voor de Bouwers,<br>Denkers &amp; Creatieven</h1>
+            <p class="page-intro__lead reveal">
+              Ik versimpel je decision-making, herstructureer je strategie en ontwerp je teams opnieuw.
+            </p>
+            <p class="reveal">
+              Ik versterk jouw organisatie top-down. Dat houdt in dat ik 1-op-1 met jou werk als leider — om de organisatie te stroomlijnen, omzet te verhogen of jouw managementvaardigheden te verbeteren. Creëer de focus die direct doorwerkt in een hogere omzet en een beter resultaat.
+            </p>
+            <div class="divider reveal"></div>
+            <a class="btn btn--filled reveal" href="contact.html">Plan het gesprek</a>
+          </div>
         </div>
-        <div class="page-intro__body">
-          <h1 class="reveal" style="font-size: clamp(1.8rem, 3.5vw, 2.8rem); font-weight: 700; color: var(--ink); line-height: 1.1; margin: 0 0 20px;">Voor de Bouwers,<br>Denkers &amp; Creatieven</h1>
-          <p class="page-intro__lead reveal">
-            Ik versimpel je decision-making, herstructureer je strategie en ontwerp je teams opnieuw.
-          </p>
-          <p class="reveal">
-            Ik versterk jouw organisatie top-down. Dat houdt in dat ik 1-op-1 met jou werk als leider — om de organisatie te stroomlijnen, omzet te verhogen of jouw managementvaardigheden te verbeteren. Creëer de focus die direct doorwerkt in een hogere omzet en een beter resultaat.
-          </p>
-          <div class="divider reveal"></div>
-          <a class="btn btn--filled reveal" href="contact.html">Plan het gesprek</a>
+        <div class="coach-intro__img reveal">
+          <img src="images/dion coach.png" alt="Dion Mensink — Performance Coach" loading="eager">
         </div>
       </div>
     </section>
