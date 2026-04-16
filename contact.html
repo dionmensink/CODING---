@@ -8,6 +8,7 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow:wght@300;400;600;700&display=swap">
 
   <style>body { opacity: 0; }</style>
 
@@ -336,7 +337,10 @@
   <main>
     <section class="contact-page" aria-label="Contact">
 
-      <img src="images/amsterdam-skyline.jpg" class="contact-page__skyline" alt="" loading="eager">
+      <picture>
+        <source srcset="images/amsterdam-skyline-1x.webp 1x, images/amsterdam-skyline-2x.webp 2x" type="image/webp">
+        <img src="images/amsterdam-skyline.jpg" class="contact-page__skyline" alt="" loading="eager">
+      </picture>
 
       <div class="contact-page__inner">
 
@@ -414,8 +418,8 @@
     </section>
   </main>
 
-  <script src="js/transitions.js"></script>
-  <script src="js/main.js"></script>
+  <script src="js/transitions.js" defer></script>
+  <script src="js/main.js" defer></script>
   <script>
     (function () {
       var form = document.getElementById('contact-form');

@@ -8,6 +8,7 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow:wght@300;400;600;700&display=swap">
 
   <style>body { opacity: 0; }</style>
 
@@ -398,7 +399,10 @@
   <!-- FOOTER -->
   <footer class="site-footer" role="contentinfo">
     <div class="footer-contact">
-      <img src="images/amsterdam-skyline.jpg" class="footer-contact__skyline" alt="" loading="lazy">
+      <picture>
+        <source srcset="images/amsterdam-skyline-1x.webp 1x, images/amsterdam-skyline-2x.webp 2x" type="image/webp">
+        <img src="images/amsterdam-skyline.jpg" class="footer-contact__skyline" alt="" loading="lazy">
+      </picture>
       <nav class="footer-contact__nav" aria-label="Footer navigatie">
         <a href="over.html">Over Dion</a>
         <a href="trainer.html">Trainer</a>
@@ -429,8 +433,8 @@
     </div>
   </footer>
 
-  <script src="js/transitions.js"></script>
-  <script src="js/main.js"></script>
+  <script src="js/transitions.js" defer></script>
+  <script src="js/main.js" defer></script>
   <script>
     (function () {
       var isTouchDevice = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);

@@ -8,6 +8,7 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow:wght@300;400;600;700&display=swap">
 
   <style>body { opacity: 0; }</style>
 
@@ -226,7 +227,10 @@
     <section class="over-bio section" aria-label="Biografie">
       <div class="over-bio__inner">
         <div class="over-bio__image-wrap reveal">
-          <img class="over-bio__image" src="images/dion-coach.png" alt="Portret van Dion Mensink" loading="lazy">
+          <picture>
+            <source srcset="images/dion-coach-1x.webp 1x, images/dion-coach-2x.webp 2x" type="image/webp">
+            <img class="over-bio__image" src="images/dion-coach.png" alt="Portret van Dion Mensink" loading="lazy">
+          </picture>
         </div>
         <div class="over-bio__text">
           <span class="label reveal">Wie is Dion?</span>
@@ -381,7 +385,10 @@
           <a class="card-container reveal" href="trainer.html" aria-label="Dion als Trainer">
             <div class="card-inner">
               <div class="card-front">
-                <img class="card-front__image" src="images/dion-trainer.png" alt="Dion als Trainer" loading="lazy">
+                <picture>
+                  <source srcset="images/dion-trainer-1x.webp 1x, images/dion-trainer-2x.webp 2x" type="image/webp">
+                  <img class="card-front__image" src="images/dion-trainer.png" alt="Dion als Trainer" loading="lazy">
+                </picture>
                 <div class="card-front__overlay"></div>
                 <div class="card-front__label">
                   <span class="card-front__role">Rol 01</span>
@@ -408,7 +415,10 @@
           <a class="card-container reveal reveal-delay-1" href="coach.html" aria-label="Dion als Coach">
             <div class="card-inner">
               <div class="card-front">
-                <img class="card-front__image" src="images/dion-coach.png" alt="Dion als Coach" loading="lazy">
+                <picture>
+                  <source srcset="images/dion-coach-1x.webp 1x, images/dion-coach-2x.webp 2x" type="image/webp">
+                  <img class="card-front__image" src="images/dion-coach.png" alt="Dion als Coach" loading="lazy">
+                </picture>
                 <div class="card-front__overlay"></div>
                 <div class="card-front__label">
                   <span class="card-front__role">Rol 02</span>
@@ -440,7 +450,10 @@
   <!-- FOOTER -->
   <footer class="site-footer" role="contentinfo">
     <div class="footer-contact">
-      <img src="images/amsterdam-skyline.jpg" class="footer-contact__skyline" alt="" loading="lazy">
+      <picture>
+        <source srcset="images/amsterdam-skyline-1x.webp 1x, images/amsterdam-skyline-2x.webp 2x" type="image/webp">
+        <img src="images/amsterdam-skyline.jpg" class="footer-contact__skyline" alt="" loading="lazy">
+      </picture>
       <nav class="footer-contact__nav" aria-label="Footer navigatie">
         <a href="over.html">Over Dion</a>
         <a href="trainer.html">Trainer</a>
@@ -471,7 +484,7 @@
     </div>
   </footer>
 
-  <script src="js/transitions.js"></script>
-  <script src="js/main.js"></script>
+  <script src="js/transitions.js" defer></script>
+  <script src="js/main.js" defer></script>
 </body>
 </html>

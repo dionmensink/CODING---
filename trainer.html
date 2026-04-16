@@ -8,6 +8,7 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow:wght@300;400;600;700&display=swap">
 
   <style>body { opacity: 0; }</style>
 
@@ -61,12 +62,15 @@
 
     <!-- HERO -->
     <section class="page-hero page-hero--tall" aria-label="Dion als Trainer">
-      <img
-        class="page-hero__image parallax engraving"
-        src="images/dion-trainer.png"
-        alt="Dion Mensink begeleidt een groepstraining agressiemanagement"
-        loading="eager"
-      >
+      <picture>
+        <source srcset="images/dion-trainer-1x.webp 1x, images/dion-trainer-2x.webp 2x" type="image/webp">
+        <img
+          class="page-hero__image parallax engraving"
+          src="images/dion-trainer.png"
+          alt="Dion Mensink begeleidt een groepstraining agressiemanagement"
+          loading="eager"
+        >
+      </picture>
       <div class="page-hero__overlay"></div>
       <div class="page-hero__content container">
         <p class="page-hero__label">Mensinc</p>
@@ -194,7 +198,10 @@
   <!-- FOOTER -->
   <footer class="site-footer" role="contentinfo">
     <div class="footer-contact">
-      <img src="images/amsterdam-skyline.jpg" class="footer-contact__skyline" alt="" loading="lazy">
+      <picture>
+        <source srcset="images/amsterdam-skyline-1x.webp 1x, images/amsterdam-skyline-2x.webp 2x" type="image/webp">
+        <img src="images/amsterdam-skyline.jpg" class="footer-contact__skyline" alt="" loading="lazy">
+      </picture>
       <nav class="footer-contact__nav" aria-label="Footer navigatie">
         <a href="over.html">Over Dion</a>
         <a href="trainer.html">Trainer</a>
@@ -225,7 +232,7 @@
     </div>
   </footer>
 
-  <script src="js/transitions.js"></script>
-  <script src="js/main.js"></script>
+  <script src="js/transitions.js" defer></script>
+  <script src="js/main.js" defer></script>
 </body>
 </html>
